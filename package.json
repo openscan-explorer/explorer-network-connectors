@@ -1,0 +1,16 @@
+{
+  "name": "explorer-network-connectors",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/RpcClient.test.ts",
+    "test:watch": "node --test --watch tests/**/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0"
+  },
+  "main": "src/index.ts",
+  "files": [
+    "src"
+  ]
+}
