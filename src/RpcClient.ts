@@ -1,4 +1,4 @@
-import type { JsonRpcRequest, JsonRpcResponse } from "./RpcClientTypes.ts";
+import type { JsonRpcRequest, JsonRpcResponse } from "./RpcClientTypes.js";
 
 export class RpcClient {
   private url: string;
@@ -28,7 +28,7 @@ export class RpcClient {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const result: JsonRpcResponse<T> = await response.json();
+    const result: JsonRpcResponse<T> = await response.json() as JsonRpcResponse<T>;
 
     if (result.error) {
       throw new Error(`RPC error: ${result.error.message}`);

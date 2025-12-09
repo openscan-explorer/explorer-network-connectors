@@ -1,6 +1,6 @@
-import { NetworkClient } from "../../NetworkClient.ts";
-import type { StrategyResult } from "../../strategies/strategiesTypes.ts";
-import type { StrategyConfig } from "../../strategies/requestStrategy.ts";
+import { NetworkClient } from "../../NetworkClient.js";
+import type { StrategyResult } from "../../strategies/strategiesTypes.js";
+import type { StrategyConfig } from "../../strategies/requestStrategy.js";
 import type {
   PolygonBlock,
   PolygonTransaction,
@@ -13,7 +13,7 @@ import type {
   EthSyncingStatus,
   BorValidator,
   BorSnapshot,
-} from "./PolygonTypes";
+} from "./PolygonTypes.js";
 
 /**
  * Polygon-specific network client with typed methods

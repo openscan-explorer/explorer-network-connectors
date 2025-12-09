@@ -1,8 +1,8 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { PolygonClient } from "../../src/networks/137/PolygonClient.ts";
-import type { StrategyConfig } from "../../src/strategies/requestStrategy.ts";
-import type { PolygonTransactionReceipt, PolygonLog } from "../../src/networks/137/PolygonTypes.ts";
+import { PolygonClient } from "../../src/networks/137/PolygonClient.js";
+import type { StrategyConfig } from "../../src/strategies/requestStrategy.js";
+import type { PolygonTransactionReceipt, PolygonLog } from "../../src/networks/137/PolygonTypes.js";
 
 const TEST_URLS = [
   "https://poly.api.pocket.network",

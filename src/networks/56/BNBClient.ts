@@ -1,6 +1,6 @@
-import { NetworkClient } from "../../NetworkClient.ts";
-import type { StrategyResult } from "../../strategies/strategiesTypes.ts";
-import type { StrategyConfig } from "../../strategies/requestStrategy.ts";
+import { NetworkClient } from "../../NetworkClient.js";
+import type { StrategyResult } from "../../strategies/strategiesTypes.js";
+import type { StrategyConfig } from "../../strategies/requestStrategy.js";
 import type {
   BNBBlock,
   BNBTransaction,
@@ -18,7 +18,7 @@ import type {
   BNBTransactionDataAndReceipt,
   BNBHealthStatus,
   BNBTxPoolStatus,
-} from "./BNBTypes";
+} from "./BNBTypes.js";
 
 /**
  * BNB Smart Chain (BSC) network client with typed methods

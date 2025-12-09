@@ -1,9 +1,9 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { StrategyFactory } from "../../src/strategies/requestStrategy.ts";
-import { FallbackStrategy } from "../../src/strategies/fallbackStrategy.ts";
-import { ParallelStrategy } from "../../src/strategies/parallelStrategy.ts";
-import type { StrategyConfig } from "../../src/strategies/requestStrategy.ts";
+import { StrategyFactory } from "../../src/strategies/requestStrategy.js";
+import { FallbackStrategy } from "../../src/strategies/fallbackStrategy.js";
+import { ParallelStrategy } from "../../src/strategies/parallelStrategy.js";
+import type { StrategyConfig } from "../../src/strategies/requestStrategy.js";
 
 const TEST_URLS = [
   "https://eth.merkle.io",

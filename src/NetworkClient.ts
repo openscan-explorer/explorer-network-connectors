@@ -1,5 +1,5 @@
-import type { RequestStrategy, StrategyResult } from "./strategies/strategiesTypes.ts";
-import { StrategyFactory, type StrategyConfig } from "./strategies/requestStrategy.ts";
+import type { RequestStrategy, StrategyResult } from "./strategies/strategiesTypes.js";
+import { StrategyFactory, type StrategyConfig } from "./strategies/requestStrategy.js";
 
 /**
  * Base network client that uses strategy pattern for RPC requests

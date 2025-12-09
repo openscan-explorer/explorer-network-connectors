@@ -1,6 +1,6 @@
-import { NetworkClient } from "../../NetworkClient.ts";
-import type { StrategyResult } from "../../strategies/strategiesTypes.ts";
-import type { StrategyConfig } from "../../strategies/requestStrategy.ts";
+import { NetworkClient } from "../../NetworkClient.js";
+import type { StrategyResult } from "../../strategies/strategiesTypes.js";
+import type { StrategyConfig } from "../../strategies/requestStrategy.js";
 import type {
   ArbitrumBlock,
   ArbitrumTransaction,
@@ -12,7 +12,7 @@ import type {
   ArbitrumTraceResponse,
   ArbitrumTraceOptions,
   BlockNumberOrTag,
-} from "./ArbitrumTypes";
+} from "./ArbitrumTypes.js";
 
 /**
  * Arbitrum-specific network client with strongly typed methods

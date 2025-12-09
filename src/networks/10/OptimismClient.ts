@@ -1,6 +1,6 @@
-import { NetworkClient } from "../../NetworkClient.ts";
-import type { StrategyResult } from "../../strategies/strategiesTypes.ts";
-import type { StrategyConfig } from "../../strategies/requestStrategy.ts";
+import { NetworkClient } from "../../NetworkClient.js";
+import type { StrategyResult } from "../../strategies/strategiesTypes.js";
+import type { StrategyConfig } from "../../strategies/requestStrategy.js";
 import type {
   OptimismBlock,
   OptimismTransaction,
@@ -17,7 +17,7 @@ import type {
   OpP2PPeersResponse,
   OpP2PPeerStats,
   EthSyncingStatus,
-} from "./OptimismTypes";
+} from "./OptimismTypes.js";
 
 /**
  * Optimism-specific network client with typed methods

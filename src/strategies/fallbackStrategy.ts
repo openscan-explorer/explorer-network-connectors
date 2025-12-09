@@ -1,5 +1,5 @@
-import type { RequestStrategy, StrategyResult, RPCProviderResponse } from "./strategiesTypes.ts";
-import { RpcClient } from "../RpcClient.ts";
+import type { RequestStrategy, StrategyResult, RPCProviderResponse } from "./strategiesTypes.js";
+import { RpcClient } from "../RpcClient.js";
 
 
 export class FallbackStrategy implements RequestStrategy {

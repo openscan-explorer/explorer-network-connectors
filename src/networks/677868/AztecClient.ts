@@ -1,6 +1,6 @@
-import { NetworkClient } from "../../NetworkClient.ts";
-import type { StrategyResult } from "../../strategies/strategiesTypes.ts";
-import type { StrategyConfig } from "../../strategies/requestStrategy.ts";
+import { NetworkClient } from "../../NetworkClient.js";
+import type { StrategyResult } from "../../strategies/strategiesTypes.js";
+import type { StrategyConfig } from "../../strategies/requestStrategy.js";
 import type {
   L2Block,
   BlockHeader,
@@ -33,7 +33,7 @@ import type {
   SlashPayloadRound,
   Offense,
   BlockNumberOrLatest,
-} from "./AztecTypes";
+} from "./AztecTypes.js";
 
 /**
  * Aztec-specific network client with typed methods

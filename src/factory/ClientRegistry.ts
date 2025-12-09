@@ -1,12 +1,12 @@
-import type { StrategyConfig } from "../strategies/requestStrategy.ts";
-import { NetworkClient } from "../NetworkClient.ts";
-import { EthereumClient } from "../networks/1/EthereumClient.ts";
-import { OptimismClient } from "../networks/10/OptimismClient.ts";
-import { BNBClient } from "../networks/56/BNBClient.ts";
-import { PolygonClient } from "../networks/137/PolygonClient.ts";
-import { BaseClient } from "../networks/8453/BaseClient.ts";
-import { ArbitrumClient } from "../networks/42161/ArbitrumClient.ts";
-import { AztecClient } from "../networks/677868/AztecClient.ts";
+import type { StrategyConfig } from "../strategies/requestStrategy.js";
+import { NetworkClient } from "../NetworkClient.js";
+import { EthereumClient } from "../networks/1/EthereumClient.js";
+import { OptimismClient } from "../networks/10/OptimismClient.js";
+import { BNBClient } from "../networks/56/BNBClient.js";
+import { PolygonClient } from "../networks/137/PolygonClient.js";
+import { BaseClient } from "../networks/8453/BaseClient.js";
+import { ArbitrumClient } from "../networks/42161/ArbitrumClient.js";
+import { AztecClient } from "../networks/677868/AztecClient.js";
 
 /**
  * Supported chain IDs for the client factory

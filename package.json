@@ -3,14 +3,23 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
     "test": "node --test tests/**/*.test.ts",
     "test:watch": "node --test --watch tests/**/*.test.ts"
   },
   "devDependencies": {
-    "@types/node": "^24.10.0"
+    "@tsconfig/node24": "^24.0.3",
+    "@types/node": "^24.10.0",
+    "typescript": "^5.9.3"
   },
-  "main": "src/index.ts",
-  "files": [
-    "src"
-  ]
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files":["dist"],
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  }
 }

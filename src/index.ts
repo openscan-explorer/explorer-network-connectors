@@ -1,8 +1,8 @@
 // Base client
-export { NetworkClient } from "./NetworkClient.ts";
+export { NetworkClient } from "./NetworkClient.js";
 
 // Ethereum (Chain ID: 1)
-export { EthereumClient } from "./networks/1/EthereumClient.ts";
+export { EthereumClient } from "./networks/1/EthereumClient.js";
 export type {
   EthBlock,
   EthTransaction,
@@ -15,10 +15,10 @@ export type {
   BlockNumberOrTag as EthBlockNumberOrTag,
   BlockTag as EthBlockTag,
   AccessListEntry as EthAccessListEntry,
-} from "./networks/1/EthereumTypes.ts";
+} from "./networks/1/EthereumTypes.js";
 
 // Optimism (Chain ID: 10)
-export { OptimismClient } from "./networks/10/OptimismClient.ts";
+export { OptimismClient } from "./networks/10/OptimismClient.js";
 export type {
   OptimismBlock,
   OptimismTransaction,
@@ -35,10 +35,10 @@ export type {
   BlockNumberOrTag as OptimismBlockNumberOrTag,
   BlockTag as OptimismBlockTag,
   AccessListEntry as OptimismAccessListEntry,
-} from "./networks/10/OptimismTypes.ts";
+} from "./networks/10/OptimismTypes.js";
 
 // BNB Smart Chain (Chain ID: 56)
-export { BNBClient } from "./networks/56/BNBClient.ts";
+export { BNBClient } from "./networks/56/BNBClient.js";
 export type {
   BNBBlock,
   BNBTransaction,
@@ -57,10 +57,10 @@ export type {
   BlockNumberOrTag as BNBBlockNumberOrTag,
   BlockTag as BNBBlockTag,
   AccessListEntry as BNBAccessListEntry,
-} from "./networks/56/BNBTypes.ts";
+} from "./networks/56/BNBTypes.js";
 
 // Polygon (Chain ID: 137)
-export { PolygonClient } from "./networks/137/PolygonClient.ts";
+export { PolygonClient } from "./networks/137/PolygonClient.js";
 export type {
   PolygonBlock,
   PolygonTransaction,
@@ -73,10 +73,10 @@ export type {
   BlockNumberOrTag as PolygonBlockNumberOrTag,
   BlockTag as PolygonBlockTag,
   AccessListEntry as PolygonAccessListEntry,
-} from "./networks/137/PolygonTypes.ts";
+} from "./networks/137/PolygonTypes.js";
 
 // Base (Chain ID: 8453)
-export { BaseClient } from "./networks/8453/BaseClient.ts";
+export { BaseClient } from "./networks/8453/BaseClient.js";
 export type {
   BaseBlock,
   BaseTransaction,
@@ -93,10 +93,10 @@ export type {
   BlockNumberOrTag as BaseBlockNumberOrTag,
   BlockTag as BaseBlockTag,
   AccessListEntry as BaseAccessListEntry,
-} from "./networks/8453/BaseTypes.ts";
+} from "./networks/8453/BaseTypes.js";
 
 // Arbitrum (Chain ID: 42161)
-export { ArbitrumClient } from "./networks/42161/ArbitrumClient.ts";
+export { ArbitrumClient } from "./networks/42161/ArbitrumClient.js";
 export type {
   ArbitrumBlock,
   ArbitrumTransaction,
@@ -108,10 +108,10 @@ export type {
   ArbitrumTraceResponse,
   ArbitrumTraceOptions,
   BlockNumberOrTag as ArbitrumBlockNumberOrTag,
-} from "./networks/42161/ArbitrumTypes.ts";
+} from "./networks/42161/ArbitrumTypes.js";
 
 // Aztec (Chain ID: 677868)
-export { AztecClient } from "./networks/677868/AztecClient.ts";
+export { AztecClient } from "./networks/677868/AztecClient.js";
 export type {
   L2Block as AztecL2Block,
   BlockHeader as AztecBlockHeader,
@@ -127,25 +127,25 @@ export type {
   ProtocolContractAddresses as AztecProtocolContractAddresses,
   GasFees as AztecGasFees,
   BlockNumberOrLatest as AztecBlockNumberOrLatest,
-} from "./networks/677868/AztecTypes.ts";
+} from "./networks/677868/AztecTypes.js";
 
 // Client Factory (Chain ID-based instantiation)
-export { ClientFactory } from "./factory/ClientRegistry.ts";
-export type { SupportedChainId, ClientConstructor, ChainIdToClient } from "./factory/ClientRegistry.ts";
+export { ClientFactory } from "./factory/ClientRegistry.js";
+export type { SupportedChainId, ClientConstructor, ChainIdToClient } from "./factory/ClientRegistry.js";
 
 // Strategy types and factory
-export { StrategyFactory } from "./strategies/requestStrategy.ts";
-export type { StrategyConfig } from "./strategies/requestStrategy.ts";
+export { StrategyFactory } from "./strategies/requestStrategy.js";
+export type { StrategyConfig } from "./strategies/requestStrategy.js";
 export type {
   RequestStrategy,
   StrategyResult,
   RPCMetadata,
   RPCProviderResponse,
-} from "./strategies/strategiesTypes.ts";
+} from "./strategies/strategiesTypes.js";
 
 // Concrete strategies
-export { FallbackStrategy } from "./strategies/fallbackStrategy.ts";
-export { ParallelStrategy } from "./strategies/parallelStrategy.ts";
+export { FallbackStrategy } from "./strategies/fallbackStrategy.js";
+export { ParallelStrategy } from "./strategies/parallelStrategy.js";
 
 // Legacy RPC client (for backwards compatibility)
-export { RpcClient } from "./RpcClient.ts";
+export { RpcClient } from "./RpcClient.js";

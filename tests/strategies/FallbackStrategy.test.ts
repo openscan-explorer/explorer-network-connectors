@@ -1,7 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { FallbackStrategy } from "../../src/strategies/fallbackStrategy.ts";
-import { RpcClient } from "../../src/RpcClient.ts";
+import { FallbackStrategy } from "../../src/strategies/fallbackStrategy.js";
+import { RpcClient } from "../../src/RpcClient.js";
 
 const TEST_URLS = [
   "https://eth.merkle.io",

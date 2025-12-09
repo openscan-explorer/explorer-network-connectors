@@ -1,7 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { EthereumClient } from "../../src/networks/1/EthereumClient.ts";
-import type { StrategyConfig } from "../../src/strategies/requestStrategy.ts";
+import { EthereumClient } from "../../src/networks/1/EthereumClient.js";
+import type { StrategyConfig } from "../../src/strategies/requestStrategy.js";
 
 const TEST_URLS = [
   "https://eth.merkle.io",

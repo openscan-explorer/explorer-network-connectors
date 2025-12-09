@@ -1,7 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { NetworkClient } from "../src/NetworkClient.ts";
-import type { StrategyConfig } from "../src/strategies/requestStrategy.ts";
+import { NetworkClient } from "../src/NetworkClient.js";
+import type { StrategyConfig } from "../src/strategies/requestStrategy.js";
 
 const TEST_URLS = [
   "https://eth.merkle.io",

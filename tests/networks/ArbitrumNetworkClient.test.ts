@@ -1,7 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { ArbitrumClient } from "../../src/networks/42161/ArbitrumClient.ts";
-import type { StrategyConfig } from "../../src/strategies/requestStrategy.ts";
+import { ArbitrumClient } from "../../src/networks/42161/ArbitrumClient.js";
+import type { StrategyConfig } from "../../src/strategies/requestStrategy.js";
 
 const TEST_URLS = [
   "https://arb-one.api.pocket.network",

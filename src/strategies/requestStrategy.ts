@@ -1,7 +1,7 @@
-import type { RequestStrategy } from "./strategiesTypes.ts";
-import { FallbackStrategy } from "./fallbackStrategy.ts";
-import { ParallelStrategy } from "./parallelStrategy.ts";
-import { RpcClient } from "../RpcClient.ts";
+import type { RequestStrategy } from "./strategiesTypes.js";
+import { FallbackStrategy } from "./fallbackStrategy.js";
+import { ParallelStrategy } from "./parallelStrategy.js";
+import { RpcClient } from "../RpcClient.js";
 
 export interface StrategyConfig {
   type: "fallback" | "parallel";
