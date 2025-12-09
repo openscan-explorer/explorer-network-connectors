@@ -1,13 +1,15 @@
-import type { RequestStrategy, StrategyResult, RPCProviderResponse, RPCMetadata } from "./strategiesTypes";
-import { RpcClient } from "../RpcClient";
+import type { RequestStrategy, StrategyResult, RPCProviderResponse, RPCMetadata } from "./strategiesTypes.ts";
+import { RpcClient } from "../RpcClient.ts";
 
 export class ParallelStrategy implements RequestStrategy {
+  private rpcClients: RpcClient[]
   constructor(
-    private rpcClients: RpcClient[],
+    rpcClients: RpcClient[],
   ) {
     if (rpcClients.length === 0) {
       throw new Error("At least one RPC client must be provided");
     }
+    this.rpcClients = rpcClients;
   }
 
   /**

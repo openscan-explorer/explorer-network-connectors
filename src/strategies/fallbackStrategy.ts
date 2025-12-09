@@ -1,12 +1,14 @@
-import type { RequestStrategy, StrategyResult, RPCProviderResponse } from "./strategiesTypes";
-import { RpcClient } from "../RpcClient";
+import type { RequestStrategy, StrategyResult, RPCProviderResponse } from "./strategiesTypes.ts";
+import { RpcClient } from "../RpcClient.ts";
 
 
 export class FallbackStrategy implements RequestStrategy {
-  constructor(private rpcClients: RpcClient[]) {
+  private rpcClients: RpcClient[]
+  constructor(rpcClients: RpcClient[]) {
     if (rpcClients.length === 0) {
       throw new Error("At least one RPC client must be provided");
     }
+    this.rpcClients = rpcClients;
   }
 
   /**

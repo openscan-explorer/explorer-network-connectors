@@ -1,6 +1,6 @@
-import { NetworkClient } from "../../NetworkClient";
-import type { StrategyResult } from "../../strategies/strategiesTypes";
-import type { StrategyConfig } from "../../strategies/requestStrategy";
+import { NetworkClient } from "../../NetworkClient.ts";
+import type { StrategyResult } from "../../strategies/strategiesTypes.ts";
+import type { StrategyConfig } from "../../strategies/requestStrategy.ts";
 import type {
   L2Block,
   BlockHeader,
