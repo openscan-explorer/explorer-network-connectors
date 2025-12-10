@@ -151,6 +151,22 @@ export type {
   BlockNumberOrLatest as AztecBlockNumberOrLatest,
 } from "./networks/677868/AztecTypes.js";
 
+// Sepolia Testnet (Chain ID: 11155111)
+export { SepoliaClient } from "./networks/11155111/SepoliaClient.js";
+export type {
+  SepoliaBlock,
+  SepoliaTransaction,
+  SepoliaTransactionReceipt,
+  SepoliaLog,
+  SepoliaLogFilter,
+  SepoliaCallObject,
+  SepoliaWithdrawal,
+  SepoliaSyncingStatus,
+  BlockNumberOrTag as SepoliaBlockNumberOrTag,
+  BlockTag as SepoliaBlockTag,
+  AccessListEntry as SepoliaAccessListEntry,
+} from "./networks/11155111/SepoliaTypes.js";
+
 // Client Factory (Chain ID-based instantiation)
 export { ClientFactory } from "./factory/ClientRegistry.js";
 export type { SupportedChainId, ClientConstructor, ChainIdToClient } from "./factory/ClientRegistry.js";
