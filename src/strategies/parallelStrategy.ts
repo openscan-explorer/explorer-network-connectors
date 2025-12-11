@@ -19,9 +19,9 @@ export class ParallelStrategy implements RequestStrategy {
    * Execute request in parallel across all RPC clients
    * Returns all responses with metadata including response times, hashes, and inconsistency detection
    */
-  
-// biome-ignore lint/suspicious/noExplicitAny: <TODO>
-async  execute<T>(method: string, params: any[]): Promise<StrategyResult<T>> {
+
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+  async execute<T>(method: string, params: any[]): Promise<StrategyResult<T>> {
     const timestamp = Date.now();
 
     // Create promises for all RPC clients

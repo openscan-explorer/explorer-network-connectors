@@ -1,6 +1,6 @@
 {
   "name": "explorer-network-connectors",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.json",

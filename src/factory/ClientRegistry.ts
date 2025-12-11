@@ -7,11 +7,12 @@ import { PolygonClient } from "../networks/137/PolygonClient.js";
 import { BaseClient } from "../networks/8453/BaseClient.js";
 import { ArbitrumClient } from "../networks/42161/ArbitrumClient.js";
 import { AztecClient } from "../networks/677868/AztecClient.js";
+import { SepoliaClient } from "../networks/11155111/SepoliaClient.js";
 
 /**
  * Supported chain IDs for the client factory
  */
-export type SupportedChainId = 1 | 10 | 56 | 137 | 8453 | 42161 | 677868;
+export type SupportedChainId = 1 | 10 | 56 | 97 | 137 | 8453 | 42161 | 677868 | 31337 | 11155111;
 
 /**
  * Constructor type for network clients
@@ -21,11 +22,11 @@ export type ClientConstructor = new (config: StrategyConfig) => NetworkClient;
 /**
  * Map chain IDs to their specific client types
  */
-export type ChainIdToClient<T extends SupportedChainId> = T extends 1
+export type ChainIdToClient<T extends SupportedChainId> = T extends 1 | 31337 | 11155111
   ? EthereumClient
   : T extends 10
     ? OptimismClient
-    : T extends 56
+    : T extends 56 | 97
       ? BNBClient
       : T extends 137
         ? PolygonClient
@@ -44,10 +45,13 @@ const CHAIN_REGISTRY: Record<SupportedChainId, ClientConstructor> = {
   1: EthereumClient,
   10: OptimismClient,
   56: BNBClient,
+  97: BNBClient,
   137: PolygonClient,
   8453: BaseClient,
   42161: ArbitrumClient,
   677868: AztecClient,
+  31337: EthereumClient, // Hardhat local network mapped to EthereumClient
+  11155111: SepoliaClient, // Sepolia testnet mapped to EthereumClient
 };
 
 /**
