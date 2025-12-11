@@ -4,10 +4,7 @@ import { PolygonClient } from "../../src/networks/137/PolygonClient.js";
 import type { StrategyConfig } from "../../src/strategies/requestStrategy.js";
 import type { PolygonTransactionReceipt, PolygonLog } from "../../src/networks/137/PolygonTypes.js";
 
-const TEST_URLS = [
-  "https://poly.api.pocket.network",
-  "https://polygon-bor-rpc.publicnode.com",
-];
+const TEST_URLS = ["https://poly.api.pocket.network", "https://polygon-bor-rpc.publicnode.com"];
 
 // Known transaction hash with logs
 const TEST_TX_HASH = "0xa871c9e4d142905427f4c5eb2664b4840ef8a007c9f263aed6f6c64eeae71540";
@@ -61,7 +58,10 @@ describe("PolygonClient - Transaction Receipt Types", () => {
 
         // Polygon-specific fields
         assert.strictEqual(typeof polygonLog.removed, "boolean", "Log removed should be boolean");
-        assert.ok(isHexString(polygonLog.blockTimestamp), "Log blockTimestamp should be hex string (Polygon-specific)");
+        assert.ok(
+          isHexString(polygonLog.blockTimestamp),
+          "Log blockTimestamp should be hex string (Polygon-specific)",
+        );
 
         // Verify blockTimestamp is a valid timestamp
         const timestamp = parseInt(polygonLog.blockTimestamp, 16);
@@ -98,10 +98,7 @@ describe("PolygonClient - Transaction Receipt Types", () => {
     ];
 
     for (const field of requiredFields) {
-      assert.ok(
-        field in firstLog,
-        `Log should have required field '${field}'`
-      );
+      assert.ok(field in firstLog, `Log should have required field '${field}'`);
     }
   });
 });

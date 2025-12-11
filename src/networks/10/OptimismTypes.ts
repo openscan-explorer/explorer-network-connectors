@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 // Optimism L2 RPC Types
 // Optimism is EVM-compatible and shares the same base types as Ethereum
 

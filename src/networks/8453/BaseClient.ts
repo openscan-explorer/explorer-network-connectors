@@ -313,7 +313,7 @@ export class BaseClient extends NetworkClient {
    */
   async getBlockByNumber(
     blockTag: BlockNumberOrTag,
-    fullTx: boolean = false
+    fullTx: boolean = false,
   ): Promise<StrategyResult<BaseBlock | null>> {
     return this.execute<BaseBlock | null>("eth_getBlockByNumber", [blockTag, fullTx]);
   }
@@ -325,7 +325,7 @@ export class BaseClient extends NetworkClient {
    */
   async getBlockByHash(
     blockHash: string,
-    fullTx: boolean = false
+    fullTx: boolean = false,
   ): Promise<StrategyResult<BaseBlock | null>> {
     return this.execute<BaseBlock | null>("eth_getBlockByHash", [blockHash, fullTx]);
   }
@@ -334,7 +334,9 @@ export class BaseClient extends NetworkClient {
    * Get transaction count in a block by block number
    * @param blockTag - Block number or tag
    */
-  async getBlockTransactionCountByNumber(blockTag: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async getBlockTransactionCountByNumber(
+    blockTag: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getBlockTransactionCountByNumber", [blockTag]);
   }
 
@@ -369,7 +371,7 @@ export class BaseClient extends NetworkClient {
    */
   async getUncleByBlockNumberAndIndex(
     blockTag: BlockNumberOrTag,
-    index: string
+    index: string,
   ): Promise<StrategyResult<BaseBlock | null>> {
     return this.execute<BaseBlock | null>("eth_getUncleByBlockNumberAndIndex", [blockTag, index]);
   }
@@ -381,7 +383,7 @@ export class BaseClient extends NetworkClient {
    */
   async getUncleByBlockHashAndIndex(
     blockHash: string,
-    index: string
+    index: string,
   ): Promise<StrategyResult<BaseBlock | null>> {
     return this.execute<BaseBlock | null>("eth_getUncleByBlockHashAndIndex", [blockHash, index]);
   }
@@ -393,7 +395,10 @@ export class BaseClient extends NetworkClient {
    * @param address - Account address
    * @param blockTag - Block number or tag (default: latest)
    */
-  async getBalance(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getBalance(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getBalance", [address, blockTag]);
   }
 
@@ -402,7 +407,10 @@ export class BaseClient extends NetworkClient {
    * @param address - Contract address
    * @param blockTag - Block number or tag (default: latest)
    */
-  async getCode(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getCode(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getCode", [address, blockTag]);
   }
 
@@ -415,7 +423,7 @@ export class BaseClient extends NetworkClient {
   async getStorageAt(
     address: string,
     position: string,
-    blockTag: BlockNumberOrTag = "latest"
+    blockTag: BlockNumberOrTag = "latest",
   ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getStorageAt", [address, position, blockTag]);
   }
@@ -427,7 +435,7 @@ export class BaseClient extends NetworkClient {
    */
   async getTransactionCount(
     address: string,
-    blockTag: BlockNumberOrTag = "latest"
+    blockTag: BlockNumberOrTag = "latest",
   ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getTransactionCount", [address, blockTag]);
   }
@@ -441,7 +449,7 @@ export class BaseClient extends NetworkClient {
   async getProof(
     address: string,
     storageKeys: string[],
-    blockTag: BlockNumberOrTag
+    blockTag: BlockNumberOrTag,
   ): Promise<StrategyResult<unknown>> {
     return this.execute<unknown>("eth_getProof", [address, storageKeys, blockTag]);
   }
@@ -463,9 +471,12 @@ export class BaseClient extends NetworkClient {
    */
   async getTransactionByBlockHashAndIndex(
     blockHash: string,
-    index: string
+    index: string,
   ): Promise<StrategyResult<BaseTransaction | null>> {
-    return this.execute<BaseTransaction | null>("eth_getTransactionByBlockHashAndIndex", [blockHash, index]);
+    return this.execute<BaseTransaction | null>("eth_getTransactionByBlockHashAndIndex", [
+      blockHash,
+      index,
+    ]);
   }
 
   /**
@@ -475,16 +486,21 @@ export class BaseClient extends NetworkClient {
    */
   async getTransactionByBlockNumberAndIndex(
     blockTag: BlockNumberOrTag,
-    index: string
+    index: string,
   ): Promise<StrategyResult<BaseTransaction | null>> {
-    return this.execute<BaseTransaction | null>("eth_getTransactionByBlockNumberAndIndex", [blockTag, index]);
+    return this.execute<BaseTransaction | null>("eth_getTransactionByBlockNumberAndIndex", [
+      blockTag,
+      index,
+    ]);
   }
 
   /**
    * Get transaction receipt
    * @param txHash - Transaction hash
    */
-  async getTransactionReceipt(txHash: string): Promise<StrategyResult<BaseTransactionReceipt | null>> {
+  async getTransactionReceipt(
+    txHash: string,
+  ): Promise<StrategyResult<BaseTransactionReceipt | null>> {
     return this.execute<BaseTransactionReceipt | null>("eth_getTransactionReceipt", [txHash]);
   }
 
@@ -511,7 +527,11 @@ export class BaseClient extends NetworkClient {
    * @param callObject - Call object
    * @param blockTag - Block number or tag (optional)
    */
-  async callContract(callObject: BaseCallObject, blockTag?: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async callContract(
+    callObject: BaseCallObject,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     const params: any[] = [callObject];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<string>("eth_call", params);
@@ -522,7 +542,11 @@ export class BaseClient extends NetworkClient {
    * @param txObject - Transaction object
    * @param blockTag - Block number or tag (optional)
    */
-  async estimateGas(txObject: BaseCallObject, blockTag?: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async estimateGas(
+    txObject: BaseCallObject,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     const params: any[] = [txObject];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<string>("eth_estimateGas", params);
@@ -535,11 +559,15 @@ export class BaseClient extends NetworkClient {
    */
   async createAccessList(
     txObject: BaseCallObject,
-    blockTag?: BlockNumberOrTag
+    blockTag?: BlockNumberOrTag,
   ): Promise<StrategyResult<{ accessList: AccessListEntry[]; gasUsed: string }>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     const params: any[] = [txObject];
     if (blockTag !== undefined) params.push(blockTag);
-    return this.execute<{ accessList: AccessListEntry[]; gasUsed: string }>("eth_createAccessList", params);
+    return this.execute<{ accessList: AccessListEntry[]; gasUsed: string }>(
+      "eth_createAccessList",
+      params,
+    );
   }
 
   // ===== Fee Methods (EIP-1559) =====
@@ -567,10 +595,13 @@ export class BaseClient extends NetworkClient {
   async feeHistory(
     blockCount: string,
     newestBlock: BlockNumberOrTag,
-    rewardPercentiles?: number[]
+    rewardPercentiles?: number[],
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   ): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     const params: any[] = [blockCount, newestBlock];
     if (rewardPercentiles !== undefined) params.push(rewardPercentiles);
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("eth_feeHistory", params);
   }
 
@@ -618,7 +649,9 @@ export class BaseClient extends NetworkClient {
    * Get filter changes
    * @param filterId - Filter ID
    */
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async getFilterChanges(filterId: string): Promise<StrategyResult<any[]>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any[]>("eth_getFilterChanges", [filterId]);
   }
 
@@ -642,14 +675,18 @@ export class BaseClient extends NetworkClient {
   /**
    * Get transaction pool content
    */
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async txpoolContent(): Promise<StrategyResult<Record<string, any>>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<Record<string, any>>("txpool_content");
   }
 
   /**
    * Get transaction pool inspection data
    */
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async txpoolInspect(): Promise<StrategyResult<Record<string, any>>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<Record<string, any>>("txpool_inspect");
   }
 
@@ -660,7 +697,13 @@ export class BaseClient extends NetworkClient {
    * @param txHash - Transaction hash
    * @param options - Trace options
    */
-  async debugTraceTransaction(txHash: string, options: Record<string, any> = {}): Promise<StrategyResult<any>> {
+  async debugTraceTransaction(
+    txHash: string,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+    options: Record<string, any> = {},
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+  ): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("debug_traceTransaction", [txHash, options]);
   }
 
@@ -672,11 +715,15 @@ export class BaseClient extends NetworkClient {
    */
   async debugTraceCall(
     callObject: BaseCallObject,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     options: Record<string, any>,
-    blockTag?: BlockNumberOrTag
+    blockTag?: BlockNumberOrTag,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   ): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     const params: any[] = [callObject, options];
     if (blockTag !== undefined) params.push(blockTag);
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("debug_traceCall", params);
   }
 
@@ -693,9 +740,17 @@ export class BaseClient extends NetworkClient {
     txIndex: number,
     address: string,
     startKey: string,
-    maxResults: number
+    maxResults: number,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   ): Promise<StrategyResult<any>> {
-    return this.execute<any>("debug_storageRangeAt", [blockHash, txIndex, address, startKey, maxResults]);
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+    return this.execute<any>("debug_storageRangeAt", [
+      blockHash,
+      txIndex,
+      address,
+      startKey,
+      maxResults,
+    ]);
   }
 
   /**
@@ -704,7 +759,13 @@ export class BaseClient extends NetworkClient {
    * @param start - Start address
    * @param maxResults - Maximum number of results
    */
-  async accountRange(blockTag: BlockNumberOrTag, start: string, maxResults: number): Promise<StrategyResult<any>> {
+  async accountRange(
+    blockTag: BlockNumberOrTag,
+    start: string,
+    maxResults: number,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+  ): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("debug_accountRange", [blockTag, start, maxResults]);
   }
 
@@ -712,7 +773,9 @@ export class BaseClient extends NetworkClient {
    * Get modified accounts by block hash
    * @param blockHash - Block hash
    */
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async getModifiedAccountsByHash(blockHash: string): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("debug_getModifiedAccountsByHash", [blockHash]);
   }
 
@@ -720,7 +783,9 @@ export class BaseClient extends NetworkClient {
    * Get modified accounts by block number
    * @param blockNumber - Block number
    */
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async getModifiedAccountsByNumber(blockNumber: string): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("debug_getModifiedAccountsByNumber", [blockNumber]);
   }
 
@@ -730,7 +795,9 @@ export class BaseClient extends NetworkClient {
    * Trace all transactions in a block
    * @param blockNumber - Block number (hex) or number
    */
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async traceBlock(blockNumber: string | number): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("trace_block", [blockNumber]);
   }
 
@@ -738,7 +805,9 @@ export class BaseClient extends NetworkClient {
    * Trace a transaction
    * @param txHash - Transaction hash
    */
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async traceTransaction(txHash: string): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("trace_transaction", [txHash]);
   }
 
@@ -750,11 +819,15 @@ export class BaseClient extends NetworkClient {
    */
   async traceCall(
     callObject: BaseCallObject,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     options: Record<string, any>,
-    blockTag?: BlockNumberOrTag
+    blockTag?: BlockNumberOrTag,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   ): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     const params: any[] = [callObject, options];
     if (blockTag !== undefined) params.push(blockTag);
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("trace_call", params);
   }
 
@@ -763,7 +836,13 @@ export class BaseClient extends NetworkClient {
    * @param signedTx - Signed transaction data
    * @param options - Trace options
    */
-  async traceRawTransaction(signedTx: string, options: Record<string, any>): Promise<StrategyResult<any>> {
+  async traceRawTransaction(
+    signedTx: string,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+    options: Record<string, any>,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+  ): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("trace_rawTransaction", [signedTx, options]);
   }
 
@@ -771,7 +850,9 @@ export class BaseClient extends NetworkClient {
    * Trace transactions matching filter
    * @param filter - Trace filter
    */
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async traceFilter(filter: Record<string, any>): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("trace_filter", [filter]);
   }
 
@@ -804,7 +885,11 @@ export class BaseClient extends NetworkClient {
    * @param powHash - POW hash
    * @param digest - Mix digest
    */
-  async submitWork(nonce: string, powHash: string, digest: string): Promise<StrategyResult<boolean>> {
+  async submitWork(
+    nonce: string,
+    powHash: string,
+    digest: string,
+  ): Promise<StrategyResult<boolean>> {
     return this.execute<boolean>("eth_submitWork", [nonce, powHash, digest]);
   }
 

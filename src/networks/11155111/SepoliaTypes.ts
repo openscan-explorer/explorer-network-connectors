@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 // Sepolia Testnet RPC Types
 // Chain ID: 11155111
 // Sepolia is fully compatible with Ethereum mainnet API

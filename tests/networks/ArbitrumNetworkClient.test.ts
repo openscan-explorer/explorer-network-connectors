@@ -3,10 +3,7 @@ import assert from "node:assert";
 import { ArbitrumClient } from "../../src/networks/42161/ArbitrumClient.js";
 import type { StrategyConfig } from "../../src/strategies/requestStrategy.js";
 
-const TEST_URLS = [
-  "https://arb-one.api.pocket.network",
-  "https://arbitrum.meowrpc.com",
-];
+const TEST_URLS = ["https://arb-one.api.pocket.network", "https://arbitrum.meowrpc.com"];
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
@@ -102,7 +99,15 @@ describe("ArbitrumNetworkClient - Block Methods", () => {
     assert.ok(result.data, "Should have block data");
 
     const block = result.data;
-    validateObject(block, ["number", "hash", "parentHash", "transactions", "gasLimit", "gasUsed", "timestamp"]);
+    validateObject(block, [
+      "number",
+      "hash",
+      "parentHash",
+      "transactions",
+      "gasLimit",
+      "gasUsed",
+      "timestamp",
+    ]);
     assert.ok(isHexString(block.number), "Block number should be hex");
     assert.ok(isHexString(block.hash), "Block hash should be hex");
     assert.ok(isHexString(block.gasLimit), "gasLimit should be hex");
@@ -200,7 +205,16 @@ describe("ArbitrumNetworkClient - Transaction Methods", () => {
 
       if (result.data !== null) {
         assert.strictEqual(result.success, true, "Should succeed");
-        validateObject(result.data, ["hash", "from", "to", "value", "gas", "gasPrice", "nonce", "chainId"]);
+        validateObject(result.data, [
+          "hash",
+          "from",
+          "to",
+          "value",
+          "gas",
+          "gasPrice",
+          "nonce",
+          "chainId",
+        ]);
         assert.ok(isHexString(result.data?.hash as string), "Transaction hash should be hex");
         assert.ok(isAddress(result.data?.from as string), "From should be address");
         assert.ok(isHexString(result.data?.nonce as string), "Nonce should be hex");
@@ -223,7 +237,14 @@ describe("ArbitrumNetworkClient - Transaction Methods", () => {
 
       if (result.data !== null) {
         assert.strictEqual(result.success, true, "Should succeed");
-        validateObject(result.data, ["transactionHash", "blockNumber", "blockHash", "gasUsed", "status", "logs"]);
+        validateObject(result.data, [
+          "transactionHash",
+          "blockNumber",
+          "blockHash",
+          "gasUsed",
+          "status",
+          "logs",
+        ]);
         assert.ok(isHexString(result.data?.blockNumber as string), "Block number should be hex");
         assert.ok(isHexString(result.data?.gasUsed as string), "Gas used should be hex");
         assert.ok(Array.isArray(result.data?.logs), "Should have logs array");
@@ -286,7 +307,14 @@ describe("ArbitrumNetworkClient - Logs", () => {
     assert.ok(Array.isArray(result.data), "Should return array of logs");
 
     for (const log of result.data) {
-      validateObject(log, ["address", "topics", "data", "blockNumber", "transactionHash", "removed"]);
+      validateObject(log, [
+        "address",
+        "topics",
+        "data",
+        "blockNumber",
+        "transactionHash",
+        "removed",
+      ]);
       assert.ok(isAddress(log.address), "Log address should be valid");
       assert.ok(Array.isArray(log.topics), "Topics should be array");
       assert.strictEqual(typeof log.removed, "boolean", "Removed should be boolean");

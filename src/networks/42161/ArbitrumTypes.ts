@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 // Arbitrum RPC Types
 
 export type ArbitrumBlockTag = "latest" | "earliest" | "pending";
@@ -5,82 +6,82 @@ export type BlockNumberOrTag = string | ArbitrumBlockTag;
 
 // Block Types
 export interface ArbitrumBlock {
-  baseFeePerGas: string
-  difficulty: string
-  extraData: string
-  gasLimit: string
-  gasUsed: string
-  hash: string
-  l1BlockNumber: string
-  logsBloom: string
-  miner: string
-  mixHash: string
-  nonce: string
-  number: string
-  parentHash: string
-  receiptsRoot: string
-  sendCount: string
-  sendRoot: string
-  sha3Uncles: string
-  size: string
-  stateRoot: string
-  timestamp: string
-  transactions: string[] | ArbitrumTransaction[]
-  transactionsRoot: string
-  uncles: string[]
+  baseFeePerGas: string;
+  difficulty: string;
+  extraData: string;
+  gasLimit: string;
+  gasUsed: string;
+  hash: string;
+  l1BlockNumber: string;
+  logsBloom: string;
+  miner: string;
+  mixHash: string;
+  nonce: string;
+  number: string;
+  parentHash: string;
+  receiptsRoot: string;
+  sendCount: string;
+  sendRoot: string;
+  sha3Uncles: string;
+  size: string;
+  stateRoot: string;
+  timestamp: string;
+  transactions: string[] | ArbitrumTransaction[];
+  transactionsRoot: string;
+  uncles: string[];
 }
 
 // Transaction Types
 export interface ArbitrumTransaction {
-  blockHash: string
-  blockNumber: string
-  from: string
-  gas: string
-  gasPrice: string
-  hash: string
-  input: string
-  nonce: string
-  to: string
-  transactionIndex?: string
-  value: string
-  type: string
-  chainId: string
-  v: string
-  r: string
-  s: string
+  blockHash: string;
+  blockNumber: string;
+  from: string;
+  gas: string;
+  gasPrice: string;
+  hash: string;
+  input: string;
+  nonce: string;
+  to: string;
+  transactionIndex?: string;
+  value: string;
+  type: string;
+  chainId: string;
+  v: string;
+  r: string;
+  s: string;
 }
 
 export interface ArbitrumTransactionReceipt {
-  blockHash: string
-  blockNumber: string
-  contractAddress: string | null
-  cumulativeGasUsed: string
-  effectiveGasPrice: string
-  from: string
-  gasUsed: string
-  gasUsedForL1: string
-  l1BlockNumber: string
-  logs: ArbitrumLog[]
-  logsBloom: string
-  status: string
-  timeboosted: boolean
-  to: string
-  transactionHash: string
-  transactionIndex: string
-  type: string
+  blockHash: string;
+  blockNumber: string;
+  contractAddress: string | null;
+  cumulativeGasUsed: string;
+  effectiveGasPrice: string;
+  from: string;
+  gasUsed: string;
+  gasUsedForL1: string;
+  l1BlockNumber: string;
+  logs: ArbitrumLog[];
+  logsBloom: string;
+  status: string;
+  timeboosted: boolean;
+  to: string;
+  transactionHash: string;
+  transactionIndex: string;
+  type: string;
 }
 
 // Log Types
 export interface ArbitrumLog {
-  address: string
-  topics: string[]
-  data: string
-  blockNumber: string
-  transactionHash: string
-  transactionIndex: string
-  blockHash: string
-  logIndex: string
-  removed: boolean
+  address: string;
+  topics: string[];
+  data: string;
+  blockNumber: string;
+  transactionHash: string;
+  transactionIndex: string;
+  blockHash: string;
+  logIndex: string;
+  removed: boolean;
 }
 
 export interface ArbitrumLogFilter {
@@ -108,17 +109,17 @@ export interface ArbitrumCallObject {
 /**
  * Call types for CALL-like operations
  */
-export type TraceCallType = 'call' | 'callcode' | 'delegatecall' | 'staticcall';
+export type TraceCallType = "call" | "callcode" | "delegatecall" | "staticcall";
 
 /**
  * Creation methods for CREATE operations
  */
-export type TraceCreationMethod = 'create' | 'create2';
+export type TraceCreationMethod = "create" | "create2";
 
 /**
  * Reward types for mining rewards
  */
-export type TraceRewardType = 'block' | 'uncle' | 'emptystep' | 'external';
+export type TraceRewardType = "block" | "uncle" | "emptystep" | "external";
 
 /**
  * Call action - represents CALL, CALLCODE, DELEGATECALL, STATICCALL operations
@@ -202,7 +203,7 @@ export interface ArbitrumTrace {
   /**
    * Type of trace operation
    */
-  type: 'call' | 'create' | 'suicide' | 'reward';
+  type: "call" | "create" | "suicide" | "reward";
 
   /**
    * Action details specific to the operation type
@@ -426,7 +427,7 @@ export interface ArbitrumTraceResponse {
 /**
  * Trace options for arbtrace_call and arbtrace_callMany
  */
-export type ArbitrumTraceOptions = Array<'trace' | 'vmTrace' | 'stateDiff'>;
+export type ArbitrumTraceOptions = Array<"trace" | "vmTrace" | "stateDiff">;
 
 // RPC Request/Response Types
 export interface JsonRpcRequest {

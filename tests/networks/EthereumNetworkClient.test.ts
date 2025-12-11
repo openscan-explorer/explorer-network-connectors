@@ -3,10 +3,7 @@ import assert from "node:assert";
 import { EthereumClient } from "../../src/networks/1/EthereumClient.js";
 import type { StrategyConfig } from "../../src/strategies/requestStrategy.js";
 
-const TEST_URLS = [
-  "https://eth.merkle.io",
-  "https://ethereum.publicnode.com",
-];
+const TEST_URLS = ["https://eth.merkle.io", "https://ethereum.publicnode.com"];
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
@@ -142,7 +139,15 @@ describe("EthereumClient - Block Methods", () => {
     assert.ok(result.data, "Should have block data");
 
     const block = result.data;
-    validateObject(block, ["number", "hash", "parentHash", "transactions", "gasLimit", "gasUsed", "timestamp"]);
+    validateObject(block, [
+      "number",
+      "hash",
+      "parentHash",
+      "transactions",
+      "gasLimit",
+      "gasUsed",
+      "timestamp",
+    ]);
     assert.ok(isHexString(block.number), "Block number should be hex");
     assert.ok(isHexString(block.hash), "Block hash should be hex");
     assert.ok(Array.isArray(block.transactions), "Transactions should be array");
@@ -290,7 +295,13 @@ describe("EthereumClient - Transaction Methods", () => {
 
       if (result.data !== null) {
         assert.strictEqual(result.success, true, "Should succeed");
-        validateObject(result.data, ["transactionHash", "blockNumber", "blockHash", "gasUsed", "status"]);
+        validateObject(result.data, [
+          "transactionHash",
+          "blockNumber",
+          "blockHash",
+          "gasUsed",
+          "status",
+        ]);
         assert.ok(isHexString(result.data?.blockNumber as string), "Block number should be hex");
         assert.ok(Array.isArray(result.data?.logs), "Should have logs array");
       }

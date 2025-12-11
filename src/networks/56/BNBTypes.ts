@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 // BNB Smart Chain (BSC) RPC Types
 // BSC is nearly fully compatible with Ethereum/Geth JSON-RPC API
 // Chain ID: 56 (mainnet), 97 (testnet)

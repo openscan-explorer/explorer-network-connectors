@@ -20,9 +20,7 @@ export class StrategyFactory {
     }
 
     // Create RPC clients for each URL
-    const rpcClients = config.rpcUrls.map(
-      (urlConfig) => new RpcClient(urlConfig)
-    );
+    const rpcClients = config.rpcUrls.map((urlConfig) => new RpcClient(urlConfig));
 
     switch (config.type) {
       case "fallback":

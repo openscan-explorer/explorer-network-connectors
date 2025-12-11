@@ -3,10 +3,7 @@ import assert from "node:assert";
 import { FallbackStrategy } from "../../src/strategies/fallbackStrategy.js";
 import { RpcClient } from "../../src/RpcClient.js";
 
-const TEST_URLS = [
-  "https://eth.merkle.io",
-  "https://ethereum.publicnode.com",
-];
+const TEST_URLS = ["https://eth.merkle.io", "https://ethereum.publicnode.com"];
 
 function isHexString(value: string): boolean {
   return typeof value === "string" && /^0x[0-9a-fA-F]*$/.test(value);
@@ -14,7 +11,7 @@ function isHexString(value: string): boolean {
 
 describe("FallbackStrategy - Constructor", () => {
   it("should create FallbackStrategy with RPC clients", () => {
-    const clients = TEST_URLS.map(url => new RpcClient(url));
+    const clients = TEST_URLS.map((url) => new RpcClient(url));
     const strategy = new FallbackStrategy(clients);
 
     assert.ok(strategy, "Strategy should be created");
@@ -27,7 +24,7 @@ describe("FallbackStrategy - Constructor", () => {
         new FallbackStrategy([]);
       },
       /at least one RPC client/i,
-      "Should throw error for empty clients"
+      "Should throw error for empty clients",
     );
   });
 
@@ -41,7 +38,7 @@ describe("FallbackStrategy - Constructor", () => {
 
 describe("FallbackStrategy - Execute Success", () => {
   it("should execute eth_chainId successfully", async () => {
-    const clients = TEST_URLS.map(url => new RpcClient(url));
+    const clients = TEST_URLS.map((url) => new RpcClient(url));
     const strategy = new FallbackStrategy(clients);
 
     const result = await strategy.execute<string>("eth_chainId", []);
@@ -53,7 +50,7 @@ describe("FallbackStrategy - Execute Success", () => {
   });
 
   it("should execute eth_blockNumber successfully", async () => {
-    const clients = TEST_URLS.map(url => new RpcClient(url));
+    const clients = TEST_URLS.map((url) => new RpcClient(url));
     const strategy = new FallbackStrategy(clients);
 
     const result = await strategy.execute<string>("eth_blockNumber", []);
@@ -64,7 +61,7 @@ describe("FallbackStrategy - Execute Success", () => {
   });
 
   it("should execute eth_gasPrice successfully", async () => {
-    const clients = TEST_URLS.map(url => new RpcClient(url));
+    const clients = TEST_URLS.map((url) => new RpcClient(url));
     const strategy = new FallbackStrategy(clients);
 
     const result = await strategy.execute<string>("eth_gasPrice", []);
@@ -75,7 +72,7 @@ describe("FallbackStrategy - Execute Success", () => {
   });
 
   it("should execute eth_getBlockByNumber with params", async () => {
-    const clients = TEST_URLS.map(url => new RpcClient(url));
+    const clients = TEST_URLS.map((url) => new RpcClient(url));
     const strategy = new FallbackStrategy(clients);
 
     const result = await strategy.execute<any>("eth_getBlockByNumber", ["latest", false]);
@@ -91,7 +88,7 @@ describe("FallbackStrategy - Fallback Behavior", () => {
   it("should fallback to second provider when first fails", async () => {
     const clients = [
       new RpcClient("https://invalid-url-12345.com"),
-      ...TEST_URLS.map(url => new RpcClient(url)),
+      ...TEST_URLS.map((url) => new RpcClient(url)),
     ];
     const strategy = new FallbackStrategy(clients);
 
@@ -106,7 +103,7 @@ describe("FallbackStrategy - Fallback Behavior", () => {
     const clients = [
       new RpcClient("https://invalid-url-1.com"),
       new RpcClient("https://invalid-url-2.com"),
-      ...TEST_URLS.map(url => new RpcClient(url)),
+      ...TEST_URLS.map((url) => new RpcClient(url)),
     ];
     const strategy = new FallbackStrategy(clients);
 
@@ -143,7 +140,7 @@ describe("FallbackStrategy - Error Details", () => {
   it("should capture error details for failed providers", async () => {
     const clients = [
       new RpcClient("https://invalid-url-12345.com"),
-      ...TEST_URLS.map(url => new RpcClient(url)),
+      ...TEST_URLS.map((url) => new RpcClient(url)),
     ];
     const strategy = new FallbackStrategy(clients);
 
@@ -174,7 +171,7 @@ describe("FallbackStrategy - Error Details", () => {
 });
 
 describe("FallbackStrategy - Different RPC Methods", () => {
-  const clients = TEST_URLS.map(url => new RpcClient(url));
+  const clients = TEST_URLS.map((url) => new RpcClient(url));
 
   it("should handle eth_getBalance", async () => {
     const strategy = new FallbackStrategy(clients);
@@ -182,7 +179,8 @@ describe("FallbackStrategy - Different RPC Methods", () => {
     const result = await strategy.execute<string>("eth_getBalance", [zeroAddress, "latest"]);
 
     assert.strictEqual(result.success, true, "Should succeed");
-    assert.ok(isHexString(result.data!), "Balance should be hex string");
+    if (!result.data) throw new Error("No data returned");
+    assert.ok(isHexString(result.data), "Balance should be hex string");
   });
 
   it("should handle eth_getCode", async () => {
@@ -191,13 +189,14 @@ describe("FallbackStrategy - Different RPC Methods", () => {
     const result = await strategy.execute<string>("eth_getCode", [zeroAddress, "latest"]);
 
     assert.strictEqual(result.success, true, "Should succeed");
-    assert.ok(isHexString(result.data!), "Code should be hex string");
+    if (!result.data) throw new Error("No data returned");
+    assert.ok(isHexString(result.data), "Code should be hex string");
   });
 
   it("should handle eth_getLogs", async () => {
     const strategy = new FallbackStrategy(clients);
     const result = await strategy.execute<any[]>("eth_getLogs", [
-      { fromBlock: "latest", toBlock: "latest" }
+      { fromBlock: "latest", toBlock: "latest" },
     ]);
 
     assert.strictEqual(result.success, true, "Should succeed");

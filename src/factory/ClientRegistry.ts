@@ -1,5 +1,5 @@
 import type { StrategyConfig } from "../strategies/requestStrategy.js";
-import { NetworkClient } from "../NetworkClient.js";
+import type { NetworkClient } from "../NetworkClient.js";
 import { EthereumClient } from "../networks/1/EthereumClient.js";
 import { OptimismClient } from "../networks/10/OptimismClient.js";
 import { BNBClient } from "../networks/56/BNBClient.js";
@@ -21,15 +21,21 @@ export type ClientConstructor = new (config: StrategyConfig) => NetworkClient;
 /**
  * Map chain IDs to their specific client types
  */
-export type ChainIdToClient<T extends SupportedChainId> =
-  T extends 1 ? EthereumClient :
-  T extends 10 ? OptimismClient :
-  T extends 56 ? BNBClient :
-  T extends 137 ? PolygonClient :
-  T extends 8453 ? BaseClient :
-  T extends 42161 ? ArbitrumClient :
-  T extends 677868 ? AztecClient :
-  NetworkClient;
+export type ChainIdToClient<T extends SupportedChainId> = T extends 1
+  ? EthereumClient
+  : T extends 10
+    ? OptimismClient
+    : T extends 56
+      ? BNBClient
+      : T extends 137
+        ? PolygonClient
+        : T extends 8453
+          ? BaseClient
+          : T extends 42161
+            ? ArbitrumClient
+            : T extends 677868
+              ? AztecClient
+              : NetworkClient;
 
 /**
  * Registry mapping chain IDs to their corresponding client constructors
@@ -42,19 +48,6 @@ const CHAIN_REGISTRY: Record<SupportedChainId, ClientConstructor> = {
   8453: BaseClient,
   42161: ArbitrumClient,
   677868: AztecClient,
-};
-
-/**
- * Chain ID to chain name mapping for human-readable error messages
- */
-const CHAIN_NAMES: Record<SupportedChainId, string> = {
-  1: "Ethereum",
-  10: "Optimism",
-  56: "BNB Smart Chain",
-  137: "Polygon",
-  8453: "Base",
-  42161: "Arbitrum",
-  677868: "Aztec",
 };
 
 /**
@@ -74,10 +67,7 @@ export class ClientFactory {
     const ClientClass = CHAIN_REGISTRY[chainId];
 
     if (!ClientClass) {
-
-      throw new Error(
-        `Unsupported network ID: `
-      );
+      throw new Error(`Unsupported network ID: `);
     }
 
     return new ClientClass(config);
@@ -94,8 +84,8 @@ export class ClientFactory {
    */
   static createTypedClient<T extends SupportedChainId>(
     chainId: T,
-    config: StrategyConfig
+    config: StrategyConfig,
   ): ChainIdToClient<T> {
-    return this.createClient(chainId, config) as ChainIdToClient<T>;
+    return ClientFactory.createClient(chainId, config) as ChainIdToClient<T>;
   }
 }

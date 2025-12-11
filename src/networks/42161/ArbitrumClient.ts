@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 import { NetworkClient } from "../../NetworkClient.js";
 import type { StrategyResult } from "../../strategies/strategiesTypes.js";
 import type { StrategyConfig } from "../../strategies/requestStrategy.js";
@@ -55,7 +56,7 @@ export class ArbitrumClient extends NetworkClient {
   async arbtraceCall(
     callObject: ArbitrumCallObject,
     traceOptions?: ArbitrumTraceOptions,
-    blockTag?: BlockNumberOrTag
+    blockTag?: BlockNumberOrTag,
   ): Promise<StrategyResult<ArbitrumTraceResponse>> {
     const params: any[] = [callObject];
     if (traceOptions !== undefined) params.push(traceOptions);
@@ -73,7 +74,7 @@ export class ArbitrumClient extends NetworkClient {
   async arbtraceCallMany(
     callObjects: ArbitrumCallObject[],
     traceOptions?: ArbitrumTraceOptions,
-    blockTag?: BlockNumberOrTag
+    blockTag?: BlockNumberOrTag,
   ): Promise<StrategyResult<ArbitrumTraceResponse[]>> {
     const params: any[] = [callObjects];
     if (traceOptions !== undefined) params.push(traceOptions);
@@ -168,7 +169,7 @@ export class ArbitrumClient extends NetworkClient {
    */
   async getBlockByNumber(
     blockTag: BlockNumberOrTag,
-    fullTx: boolean = false
+    fullTx: boolean = false,
   ): Promise<StrategyResult<ArbitrumBlock | null>> {
     return this.execute<ArbitrumBlock | null>("eth_getBlockByNumber", [blockTag, fullTx]);
   }
@@ -180,7 +181,7 @@ export class ArbitrumClient extends NetworkClient {
    */
   async getBlockByHash(
     blockHash: string,
-    fullTx: boolean = false
+    fullTx: boolean = false,
   ): Promise<StrategyResult<ArbitrumBlock | null>> {
     return this.execute<ArbitrumBlock | null>("eth_getBlockByHash", [blockHash, fullTx]);
   }
@@ -189,7 +190,9 @@ export class ArbitrumClient extends NetworkClient {
    * Get the number of transactions in a block by block number
    * @param blockTag - Block number or tag
    */
-  async getBlockTransactionCountByNumber(blockTag: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async getBlockTransactionCountByNumber(
+    blockTag: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getBlockTransactionCountByNumber", [blockTag]);
   }
 
@@ -224,9 +227,12 @@ export class ArbitrumClient extends NetworkClient {
    */
   async getUncleByBlockNumberAndIndex(
     blockTag: BlockNumberOrTag,
-    index: string
+    index: string,
   ): Promise<StrategyResult<ArbitrumBlock | null>> {
-    return this.execute<ArbitrumBlock | null>("eth_getUncleByBlockNumberAndIndex", [blockTag, index]);
+    return this.execute<ArbitrumBlock | null>("eth_getUncleByBlockNumberAndIndex", [
+      blockTag,
+      index,
+    ]);
   }
 
   /**
@@ -236,9 +242,12 @@ export class ArbitrumClient extends NetworkClient {
    */
   async getUncleByBlockHashAndIndex(
     blockHash: string,
-    index: string
+    index: string,
   ): Promise<StrategyResult<ArbitrumBlock | null>> {
-    return this.execute<ArbitrumBlock | null>("eth_getUncleByBlockHashAndIndex", [blockHash, index]);
+    return this.execute<ArbitrumBlock | null>("eth_getUncleByBlockHashAndIndex", [
+      blockHash,
+      index,
+    ]);
   }
 
   // ===== Account Methods =====
@@ -248,7 +257,10 @@ export class ArbitrumClient extends NetworkClient {
    * @param address - Account address
    * @param blockTag - Block number or tag (default: latest)
    */
-  async getBalance(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getBalance(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getBalance", [address, blockTag]);
   }
 
@@ -257,7 +269,10 @@ export class ArbitrumClient extends NetworkClient {
    * @param address - Contract address
    * @param blockTag - Block number or tag (default: latest)
    */
-  async getCode(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getCode(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getCode", [address, blockTag]);
   }
 
@@ -270,7 +285,7 @@ export class ArbitrumClient extends NetworkClient {
   async getStorageAt(
     address: string,
     position: string,
-    blockTag: BlockNumberOrTag = "latest"
+    blockTag: BlockNumberOrTag = "latest",
   ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getStorageAt", [address, position, blockTag]);
   }
@@ -282,7 +297,7 @@ export class ArbitrumClient extends NetworkClient {
    */
   async getTransactionCount(
     address: string,
-    blockTag: BlockNumberOrTag = "latest"
+    blockTag: BlockNumberOrTag = "latest",
   ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getTransactionCount", [address, blockTag]);
   }
@@ -296,7 +311,7 @@ export class ArbitrumClient extends NetworkClient {
   async getProof(
     address: string,
     storageKeys: string[],
-    blockTag: BlockNumberOrTag
+    blockTag: BlockNumberOrTag,
   ): Promise<StrategyResult<unknown>> {
     return this.execute<unknown>("eth_getProof", [address, storageKeys, blockTag]);
   }
@@ -318,9 +333,12 @@ export class ArbitrumClient extends NetworkClient {
    */
   async getTransactionByBlockHashAndIndex(
     blockHash: string,
-    index: string
+    index: string,
   ): Promise<StrategyResult<ArbitrumTransaction | null>> {
-    return this.execute<ArbitrumTransaction | null>("eth_getTransactionByBlockHashAndIndex", [blockHash, index]);
+    return this.execute<ArbitrumTransaction | null>("eth_getTransactionByBlockHashAndIndex", [
+      blockHash,
+      index,
+    ]);
   }
 
   /**
@@ -330,16 +348,21 @@ export class ArbitrumClient extends NetworkClient {
    */
   async getTransactionByBlockNumberAndIndex(
     blockTag: BlockNumberOrTag,
-    index: string
+    index: string,
   ): Promise<StrategyResult<ArbitrumTransaction | null>> {
-    return this.execute<ArbitrumTransaction | null>("eth_getTransactionByBlockNumberAndIndex", [blockTag, index]);
+    return this.execute<ArbitrumTransaction | null>("eth_getTransactionByBlockNumberAndIndex", [
+      blockTag,
+      index,
+    ]);
   }
 
   /**
    * Get transaction receipt
    * @param txHash - Transaction hash
    */
-  async getTransactionReceipt(txHash: string): Promise<StrategyResult<ArbitrumTransactionReceipt | null>> {
+  async getTransactionReceipt(
+    txHash: string,
+  ): Promise<StrategyResult<ArbitrumTransactionReceipt | null>> {
     return this.execute<ArbitrumTransactionReceipt | null>("eth_getTransactionReceipt", [txHash]);
   }
 
@@ -366,7 +389,10 @@ export class ArbitrumClient extends NetworkClient {
    * @param callObject - Call object
    * @param blockTag - Block number or tag
    */
-  async callContract(callObject: ArbitrumCallObject, blockTag?: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async callContract(
+    callObject: ArbitrumCallObject,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     const params: any[] = [callObject];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<string>("eth_call", params);
@@ -377,7 +403,10 @@ export class ArbitrumClient extends NetworkClient {
    * @param txObject - Transaction object
    * @param blockTag - Block number or tag
    */
-  async estimateGas(txObject: ArbitrumCallObject, blockTag?: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async estimateGas(
+    txObject: ArbitrumCallObject,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     const params: any[] = [txObject];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<string>("eth_estimateGas", params);
@@ -406,7 +435,7 @@ export class ArbitrumClient extends NetworkClient {
   async feeHistory(
     blockCount: string,
     newestBlock: BlockNumberOrTag,
-    rewardPercentiles?: number[]
+    rewardPercentiles?: number[],
   ): Promise<StrategyResult<any>> {
     const params: any[] = [blockCount, newestBlock];
     if (rewardPercentiles !== undefined) params.push(rewardPercentiles);
@@ -499,7 +528,10 @@ export class ArbitrumClient extends NetworkClient {
    * @param txHash - Transaction hash
    * @param options - Trace options
    */
-  async debugTraceTransaction(txHash: string, options: Record<string, any> = {}): Promise<StrategyResult<any>> {
+  async debugTraceTransaction(
+    txHash: string,
+    options: Record<string, any> = {},
+  ): Promise<StrategyResult<any>> {
     return this.execute<any>("debug_traceTransaction", [txHash, options]);
   }
 
@@ -512,7 +544,7 @@ export class ArbitrumClient extends NetworkClient {
   async debugTraceCall(
     callObject: ArbitrumCallObject,
     options: Record<string, any>,
-    blockTag?: BlockNumberOrTag
+    blockTag?: BlockNumberOrTag,
   ): Promise<StrategyResult<any>> {
     const params: any[] = [callObject, options];
     if (blockTag !== undefined) params.push(blockTag);
@@ -532,9 +564,15 @@ export class ArbitrumClient extends NetworkClient {
     txIndex: number,
     address: string,
     startKey: string,
-    maxResults: number
+    maxResults: number,
   ): Promise<StrategyResult<any>> {
-    return this.execute<any>("debug_storageRangeAt", [blockHash, txIndex, address, startKey, maxResults]);
+    return this.execute<any>("debug_storageRangeAt", [
+      blockHash,
+      txIndex,
+      address,
+      startKey,
+      maxResults,
+    ]);
   }
 
   // ===== Mining Methods (Legacy - mostly unsupported on Arbitrum) =====
@@ -566,7 +604,11 @@ export class ArbitrumClient extends NetworkClient {
    * @param powHash - POW hash
    * @param digest - Digest
    */
-  async submitWork(nonce: string, powHash: string, digest: string): Promise<StrategyResult<boolean>> {
+  async submitWork(
+    nonce: string,
+    powHash: string,
+    digest: string,
+  ): Promise<StrategyResult<boolean>> {
     return this.execute<boolean>("eth_submitWork", [nonce, powHash, digest]);
   }
 

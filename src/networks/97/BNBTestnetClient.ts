@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 import { NetworkClient } from "../../NetworkClient.js";
 import type { StrategyResult } from "../../strategies/strategiesTypes.js";
 import type { StrategyConfig } from "../../strategies/requestStrategy.js";
@@ -47,7 +48,9 @@ export class BNBTestnetClient extends NetworkClient {
    *
    * @param blockTag - Block number or tag ("latest", "safe", "finalized")
    */
-  async getHeaderByNumber(blockTag: BlockNumberOrTag): Promise<StrategyResult<BNBTestnetFinalizedHeader | null>> {
+  async getHeaderByNumber(
+    blockTag: BlockNumberOrTag,
+  ): Promise<StrategyResult<BNBTestnetFinalizedHeader | null>> {
     return this.execute<BNBTestnetFinalizedHeader | null>("eth_getHeaderByNumber", [blockTag]);
   }
 
@@ -59,8 +62,12 @@ export class BNBTestnetClient extends NetworkClient {
    *   -2: at least 2/3 of current validators (recommended)
    *   -3: highest security level
    */
-  async getFinalizedHeader(verifiedValidatorNum: -1 | -2 | -3 = -2): Promise<StrategyResult<BNBTestnetFinalizedHeader | null>> {
-    return this.execute<BNBTestnetFinalizedHeader | null>("eth_getFinalizedHeader", [verifiedValidatorNum]);
+  async getFinalizedHeader(
+    verifiedValidatorNum: -1 | -2 | -3 = -2,
+  ): Promise<StrategyResult<BNBTestnetFinalizedHeader | null>> {
+    return this.execute<BNBTestnetFinalizedHeader | null>("eth_getFinalizedHeader", [
+      verifiedValidatorNum,
+    ]);
   }
 
   /**
@@ -69,8 +76,14 @@ export class BNBTestnetClient extends NetworkClient {
    * @param verifiedValidatorNum - Security level (-1, -2, or -3)
    * @param fullTx - If true, returns full transaction objects; if false, only hashes
    */
-  async getFinalizedBlock(verifiedValidatorNum: -1 | -2 | -3 = -2, fullTx: boolean = false): Promise<StrategyResult<BNBTestnetFinalizedBlock | null>> {
-    return this.execute<BNBTestnetFinalizedBlock | null>("eth_getFinalizedBlock", [verifiedValidatorNum, fullTx]);
+  async getFinalizedBlock(
+    verifiedValidatorNum: -1 | -2 | -3 = -2,
+    fullTx: boolean = false,
+  ): Promise<StrategyResult<BNBTestnetFinalizedBlock | null>> {
+    return this.execute<BNBTestnetFinalizedBlock | null>("eth_getFinalizedBlock", [
+      verifiedValidatorNum,
+      fullTx,
+    ]);
   }
 
   /**
@@ -87,7 +100,10 @@ export class BNBTestnetClient extends NetworkClient {
    * @param blockTag - Block number or tag
    * @param fullBlob - If true, returns full blob data; if false, only first 32 bytes
    */
-  async getBlobSidecars(blockTag: BlockNumberOrTag, fullBlob: boolean = true): Promise<StrategyResult<BNBTestnetBlobSidecars | null>> {
+  async getBlobSidecars(
+    blockTag: BlockNumberOrTag,
+    fullBlob: boolean = true,
+  ): Promise<StrategyResult<BNBTestnetBlobSidecars | null>> {
     return this.execute<BNBTestnetBlobSidecars | null>("eth_getBlobSidecars", [blockTag, fullBlob]);
   }
 
@@ -97,8 +113,14 @@ export class BNBTestnetClient extends NetworkClient {
    * @param txHash - Transaction hash
    * @param fullBlob - If true, returns full blob data; if false, only first 32 bytes (default: true)
    */
-  async getBlobSidecarByTxHash(txHash: string, fullBlob: boolean = true): Promise<StrategyResult<BNBTestnetBlobSidecar | null>> {
-    return this.execute<BNBTestnetBlobSidecar | null>("eth_getBlobSidecarByTxHash", [txHash, fullBlob]);
+  async getBlobSidecarByTxHash(
+    txHash: string,
+    fullBlob: boolean = true,
+  ): Promise<StrategyResult<BNBTestnetBlobSidecar | null>> {
+    return this.execute<BNBTestnetBlobSidecar | null>("eth_getBlobSidecarByTxHash", [
+      txHash,
+      fullBlob,
+    ]);
   }
 
   /**
@@ -115,7 +137,9 @@ export class BNBTestnetClient extends NetworkClient {
    *
    * @param blockTag - Block number or tag
    */
-  async getTransactionsByBlockNumber(blockTag: BlockNumberOrTag): Promise<StrategyResult<BNBTestnetTransaction[]>> {
+  async getTransactionsByBlockNumber(
+    blockTag: BlockNumberOrTag,
+  ): Promise<StrategyResult<BNBTestnetTransaction[]>> {
     return this.execute<BNBTestnetTransaction[]>("eth_getTransactionsByBlockNumber", [blockTag]);
   }
 
@@ -125,8 +149,13 @@ export class BNBTestnetClient extends NetworkClient {
    *
    * @param txHash - Transaction hash
    */
-  async getTransactionDataAndReceipt(txHash: string): Promise<StrategyResult<BNBTestnetTransactionDataAndReceipt | null>> {
-    return this.execute<BNBTestnetTransactionDataAndReceipt | null>("eth_getTransactionDataAndReceipt", [txHash]);
+  async getTransactionDataAndReceipt(
+    txHash: string,
+  ): Promise<StrategyResult<BNBTestnetTransactionDataAndReceipt | null>> {
+    return this.execute<BNBTestnetTransactionDataAndReceipt | null>(
+      "eth_getTransactionDataAndReceipt",
+      [txHash],
+    );
   }
 
   // ===== Web3 Methods =====
@@ -194,15 +223,23 @@ export class BNBTestnetClient extends NetworkClient {
     return this.execute<string>("eth_blockNumber");
   }
 
-  async getBlockByNumber(blockTag: BlockNumberOrTag, fullTx: boolean = false): Promise<StrategyResult<BNBTestnetBlock | null>> {
+  async getBlockByNumber(
+    blockTag: BlockNumberOrTag,
+    fullTx: boolean = false,
+  ): Promise<StrategyResult<BNBTestnetBlock | null>> {
     return this.execute<BNBTestnetBlock | null>("eth_getBlockByNumber", [blockTag, fullTx]);
   }
 
-  async getBlockByHash(blockHash: string, fullTx: boolean = false): Promise<StrategyResult<BNBTestnetBlock | null>> {
+  async getBlockByHash(
+    blockHash: string,
+    fullTx: boolean = false,
+  ): Promise<StrategyResult<BNBTestnetBlock | null>> {
     return this.execute<BNBTestnetBlock | null>("eth_getBlockByHash", [blockHash, fullTx]);
   }
 
-  async getBlockTransactionCountByNumber(blockTag: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async getBlockTransactionCountByNumber(
+    blockTag: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getBlockTransactionCountByNumber", [blockTag]);
   }
 
@@ -210,7 +247,9 @@ export class BNBTestnetClient extends NetworkClient {
     return this.execute<string>("eth_getBlockTransactionCountByHash", [blockHash]);
   }
 
-  async getBlockReceipts(blockTag: BlockNumberOrTag): Promise<StrategyResult<BNBTestnetTransactionReceipt[]>> {
+  async getBlockReceipts(
+    blockTag: BlockNumberOrTag,
+  ): Promise<StrategyResult<BNBTestnetTransactionReceipt[]>> {
     return this.execute<BNBTestnetTransactionReceipt[]>("eth_getBlockReceipts", [blockTag]);
   }
 
@@ -222,31 +261,60 @@ export class BNBTestnetClient extends NetworkClient {
     return this.execute<string>("eth_getUncleCountByBlockHash", [blockHash]);
   }
 
-  async getUncleByBlockNumberAndIndex(blockTag: BlockNumberOrTag, index: string): Promise<StrategyResult<BNBTestnetBlock | null>> {
-    return this.execute<BNBTestnetBlock | null>("eth_getUncleByBlockNumberAndIndex", [blockTag, index]);
+  async getUncleByBlockNumberAndIndex(
+    blockTag: BlockNumberOrTag,
+    index: string,
+  ): Promise<StrategyResult<BNBTestnetBlock | null>> {
+    return this.execute<BNBTestnetBlock | null>("eth_getUncleByBlockNumberAndIndex", [
+      blockTag,
+      index,
+    ]);
   }
 
-  async getUncleByBlockHashAndIndex(blockHash: string, index: string): Promise<StrategyResult<BNBTestnetBlock | null>> {
-    return this.execute<BNBTestnetBlock | null>("eth_getUncleByBlockHashAndIndex", [blockHash, index]);
+  async getUncleByBlockHashAndIndex(
+    blockHash: string,
+    index: string,
+  ): Promise<StrategyResult<BNBTestnetBlock | null>> {
+    return this.execute<BNBTestnetBlock | null>("eth_getUncleByBlockHashAndIndex", [
+      blockHash,
+      index,
+    ]);
   }
 
-  async getBalance(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getBalance(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getBalance", [address, blockTag]);
   }
 
-  async getCode(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getCode(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getCode", [address, blockTag]);
   }
 
-  async getStorageAt(address: string, position: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getStorageAt(
+    address: string,
+    position: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getStorageAt", [address, position, blockTag]);
   }
 
-  async getTransactionCount(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getTransactionCount(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getTransactionCount", [address, blockTag]);
   }
 
-  async getProof(address: string, storageKeys: string[], blockTag: BlockNumberOrTag): Promise<StrategyResult<unknown>> {
+  async getProof(
+    address: string,
+    storageKeys: string[],
+    blockTag: BlockNumberOrTag,
+  ): Promise<StrategyResult<unknown>> {
     return this.execute<unknown>("eth_getProof", [address, storageKeys, blockTag]);
   }
 
@@ -254,13 +322,19 @@ export class BNBTestnetClient extends NetworkClient {
     return this.execute<string>("eth_sendRawTransaction", [signedTx]);
   }
 
-  async call(callObject: BNBTestnetCallObject, blockTag?: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async call(
+    callObject: BNBTestnetCallObject,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     const params: any[] = [callObject];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<string>("eth_call", params);
   }
 
-  async estimateGas(txObject: BNBTestnetCallObject, blockTag?: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async estimateGas(
+    txObject: BNBTestnetCallObject,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     const params: any[] = [txObject];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<string>("eth_estimateGas", params);
@@ -268,31 +342,47 @@ export class BNBTestnetClient extends NetworkClient {
 
   async createAccessList(
     txObject: BNBTestnetCallObject,
-    blockTag?: BlockNumberOrTag
+    blockTag?: BlockNumberOrTag,
   ): Promise<StrategyResult<{ accessList: AccessListEntry[]; gasUsed: string }>> {
     const params: any[] = [txObject];
     if (blockTag !== undefined) params.push(blockTag);
-    return this.execute<{ accessList: AccessListEntry[]; gasUsed: string }>("eth_createAccessList", params);
+    return this.execute<{ accessList: AccessListEntry[]; gasUsed: string }>(
+      "eth_createAccessList",
+      params,
+    );
   }
 
   // ===== Block / Transaction Queries =====
 
-  async getTransactionByHash(txHash: string): Promise<StrategyResult<BNBTestnetTransaction | null>> {
+  async getTransactionByHash(
+    txHash: string,
+  ): Promise<StrategyResult<BNBTestnetTransaction | null>> {
     return this.execute<BNBTestnetTransaction | null>("eth_getTransactionByHash", [txHash]);
   }
 
-  async getTransactionByBlockHashAndIndex(blockHash: string, index: string): Promise<StrategyResult<BNBTestnetTransaction | null>> {
-    return this.execute<BNBTestnetTransaction | null>("eth_getTransactionByBlockHashAndIndex", [blockHash, index]);
+  async getTransactionByBlockHashAndIndex(
+    blockHash: string,
+    index: string,
+  ): Promise<StrategyResult<BNBTestnetTransaction | null>> {
+    return this.execute<BNBTestnetTransaction | null>("eth_getTransactionByBlockHashAndIndex", [
+      blockHash,
+      index,
+    ]);
   }
 
   async getTransactionByBlockNumberAndIndex(
     blockTag: BlockNumberOrTag,
-    index: string
+    index: string,
   ): Promise<StrategyResult<BNBTestnetTransaction | null>> {
-    return this.execute<BNBTestnetTransaction | null>("eth_getTransactionByBlockNumberAndIndex", [blockTag, index]);
+    return this.execute<BNBTestnetTransaction | null>("eth_getTransactionByBlockNumberAndIndex", [
+      blockTag,
+      index,
+    ]);
   }
 
-  async getTransactionReceipt(txHash: string): Promise<StrategyResult<BNBTestnetTransactionReceipt | null>> {
+  async getTransactionReceipt(
+    txHash: string,
+  ): Promise<StrategyResult<BNBTestnetTransactionReceipt | null>> {
     return this.execute<BNBTestnetTransactionReceipt | null>("eth_getTransactionReceipt", [txHash]);
   }
 
@@ -348,7 +438,11 @@ export class BNBTestnetClient extends NetworkClient {
     return this.execute<string>("eth_maxPriorityFeePerGas");
   }
 
-  async feeHistory(blockCount: string, newestBlock: BlockNumberOrTag, rewardPercentiles?: number[]): Promise<StrategyResult<any>> {
+  async feeHistory(
+    blockCount: string,
+    newestBlock: BlockNumberOrTag,
+    rewardPercentiles?: number[],
+  ): Promise<StrategyResult<any>> {
     const params: any[] = [blockCount, newestBlock];
     if (rewardPercentiles !== undefined) params.push(rewardPercentiles);
     return this.execute<any>("eth_feeHistory", params);
@@ -385,19 +479,32 @@ export class BNBTestnetClient extends NetworkClient {
   // ===== Debug Methods =====
   // NOTE: These require explicit enabling on the node
 
-  async debugTraceTransaction(txHash: string, options: Record<string, any> = {}): Promise<StrategyResult<any>> {
+  async debugTraceTransaction(
+    txHash: string,
+    options: Record<string, any> = {},
+  ): Promise<StrategyResult<any>> {
     return this.execute<any>("debug_traceTransaction", [txHash, options]);
   }
 
-  async debugTraceCall(callObject: BNBTestnetCallObject, blockTag: BlockNumberOrTag, options: Record<string, any> = {}): Promise<StrategyResult<any>> {
+  async debugTraceCall(
+    callObject: BNBTestnetCallObject,
+    blockTag: BlockNumberOrTag,
+    options: Record<string, any> = {},
+  ): Promise<StrategyResult<any>> {
     return this.execute<any>("debug_traceCall", [callObject, blockTag, options]);
   }
 
-  async debugTraceBlockByHash(blockHash: string, options: Record<string, any> = {}): Promise<StrategyResult<any>> {
+  async debugTraceBlockByHash(
+    blockHash: string,
+    options: Record<string, any> = {},
+  ): Promise<StrategyResult<any>> {
     return this.execute<any>("debug_traceBlockByHash", [blockHash, options]);
   }
 
-  async debugTraceBlockByNumber(blockTag: BlockNumberOrTag, options: Record<string, any> = {}): Promise<StrategyResult<any>> {
+  async debugTraceBlockByNumber(
+    blockTag: BlockNumberOrTag,
+    options: Record<string, any> = {},
+  ): Promise<StrategyResult<any>> {
     return this.execute<any>("debug_traceBlockByNumber", [blockTag, options]);
   }
 
@@ -412,11 +519,18 @@ export class BNBTestnetClient extends NetworkClient {
     return this.execute<any>("trace_transaction", [txHash]);
   }
 
-  async traceCall(callObject: BNBTestnetCallObject, blockTag: BlockNumberOrTag, options: Record<string, any> = {}): Promise<StrategyResult<any>> {
+  async traceCall(
+    callObject: BNBTestnetCallObject,
+    blockTag: BlockNumberOrTag,
+    options: Record<string, any> = {},
+  ): Promise<StrategyResult<any>> {
     return this.execute<any>("trace_call", [callObject, blockTag, options]);
   }
 
-  async traceRawTransaction(signedTx: string, options: Record<string, any>): Promise<StrategyResult<any>> {
+  async traceRawTransaction(
+    signedTx: string,
+    options: Record<string, any>,
+  ): Promise<StrategyResult<any>> {
     return this.execute<any>("trace_rawTransaction", [signedTx, options]);
   }
 
@@ -428,7 +542,10 @@ export class BNBTestnetClient extends NetworkClient {
     return this.execute<any>("trace_replayTransaction", [txHash, traceTypes]);
   }
 
-  async traceReplayBlockTransactions(blockTag: BlockNumberOrTag, traceTypes: string[]): Promise<StrategyResult<any>> {
+  async traceReplayBlockTransactions(
+    blockTag: BlockNumberOrTag,
+    traceTypes: string[],
+  ): Promise<StrategyResult<any>> {
     return this.execute<any>("trace_replayBlockTransactions", [blockTag, traceTypes]);
   }
 }

@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 import { NetworkClient } from "../../NetworkClient.js";
 import type { StrategyResult } from "../../strategies/strategiesTypes.js";
 import type { StrategyConfig } from "../../strategies/requestStrategy.js";
@@ -72,8 +73,13 @@ export class AztecClient extends NetworkClient {
     return this.execute<L2Block[]>("node_getBlocks", [from, limit]);
   }
 
-  async getBlockHeader(blockNumber?: BlockNumberOrLatest): Promise<StrategyResult<BlockHeader | null>> {
-    return this.execute<BlockHeader | null>("node_getBlockHeader", blockNumber !== undefined ? [blockNumber] : []);
+  async getBlockHeader(
+    blockNumber?: BlockNumberOrLatest,
+  ): Promise<StrategyResult<BlockHeader | null>> {
+    return this.execute<BlockHeader | null>(
+      "node_getBlockHeader",
+      blockNumber !== undefined ? [blockNumber] : [],
+    );
   }
 
   // ===== Transaction Operations =====
@@ -107,15 +113,18 @@ export class AztecClient extends NetworkClient {
 
   async isValidTx(
     tx: Tx,
-    options?: { isSimulation?: boolean; skipFeeEnforcement?: boolean }
+    options?: { isSimulation?: boolean; skipFeeEnforcement?: boolean },
   ): Promise<StrategyResult<TxValidationResult>> {
     return this.execute<TxValidationResult>("node_isValidTx", options ? [tx, options] : [tx]);
   }
 
-  async simulatePublicCalls(tx: Tx, skipFeeEnforcement?: boolean): Promise<StrategyResult<PublicSimulationOutput>> {
+  async simulatePublicCalls(
+    tx: Tx,
+    skipFeeEnforcement?: boolean,
+  ): Promise<StrategyResult<PublicSimulationOutput>> {
     return this.execute<PublicSimulationOutput>(
       "node_simulatePublicCalls",
-      skipFeeEnforcement !== undefined ? [tx, skipFeeEnforcement] : [tx]
+      skipFeeEnforcement !== undefined ? [tx, skipFeeEnforcement] : [tx],
     );
   }
 
@@ -124,7 +133,7 @@ export class AztecClient extends NetworkClient {
   async getPublicStorageAt(
     blockNumber: BlockNumberOrLatest,
     contract: string,
-    slot: string
+    slot: string,
   ): Promise<StrategyResult<string>> {
     return this.execute<string>("node_getPublicStorageAt", [blockNumber, contract, slot]);
   }
@@ -138,24 +147,36 @@ export class AztecClient extends NetworkClient {
   async findLeavesIndexes(
     blockNumber: BlockNumberOrLatest,
     treeId: number,
-    leafValues: string[]
+    leafValues: string[],
   ): Promise<StrategyResult<LeafIndexes>> {
     return this.execute<LeafIndexes>("node_findLeavesIndexes", [blockNumber, treeId, leafValues]);
   }
 
-  async getNullifierSiblingPath(blockNumber: BlockNumberOrLatest, leafIndex: string): Promise<StrategyResult<string[]>> {
+  async getNullifierSiblingPath(
+    blockNumber: BlockNumberOrLatest,
+    leafIndex: string,
+  ): Promise<StrategyResult<string[]>> {
     return this.execute<string[]>("node_getNullifierSiblingPath", [blockNumber, leafIndex]);
   }
 
-  async getNoteHashSiblingPath(blockNumber: BlockNumberOrLatest, leafIndex: string): Promise<StrategyResult<string[]>> {
+  async getNoteHashSiblingPath(
+    blockNumber: BlockNumberOrLatest,
+    leafIndex: string,
+  ): Promise<StrategyResult<string[]>> {
     return this.execute<string[]>("node_getNoteHashSiblingPath", [blockNumber, leafIndex]);
   }
 
-  async getArchiveSiblingPath(blockNumber: BlockNumberOrLatest, leafIndex: string): Promise<StrategyResult<string[]>> {
+  async getArchiveSiblingPath(
+    blockNumber: BlockNumberOrLatest,
+    leafIndex: string,
+  ): Promise<StrategyResult<string[]>> {
     return this.execute<string[]>("node_getArchiveSiblingPath", [blockNumber, leafIndex]);
   }
 
-  async getPublicDataSiblingPath(blockNumber: BlockNumberOrLatest, leafIndex: string): Promise<StrategyResult<string[]>> {
+  async getPublicDataSiblingPath(
+    blockNumber: BlockNumberOrLatest,
+    leafIndex: string,
+  ): Promise<StrategyResult<string[]>> {
     return this.execute<string[]>("node_getPublicDataSiblingPath", [blockNumber, leafIndex]);
   }
 
@@ -163,7 +184,7 @@ export class AztecClient extends NetworkClient {
 
   async getNullifierMembershipWitness(
     blockNumber: BlockNumberOrLatest,
-    nullifier: string
+    nullifier: string,
   ): Promise<StrategyResult<NullifierMembershipWitness | null>> {
     return this.execute<NullifierMembershipWitness | null>("node_getNullifierMembershipWitness", [
       blockNumber,
@@ -173,40 +194,49 @@ export class AztecClient extends NetworkClient {
 
   async getLowNullifierMembershipWitness(
     blockNumber: BlockNumberOrLatest,
-    nullifier: string
+    nullifier: string,
   ): Promise<StrategyResult<NullifierMembershipWitness | null>> {
-    return this.execute<NullifierMembershipWitness | null>("node_getLowNullifierMembershipWitness", [
-      blockNumber,
-      nullifier,
-    ]);
+    return this.execute<NullifierMembershipWitness | null>(
+      "node_getLowNullifierMembershipWitness",
+      [blockNumber, nullifier],
+    );
   }
 
   async getPublicDataWitness(
     blockNumber: BlockNumberOrLatest,
-    leafSlot: string
+    leafSlot: string,
   ): Promise<StrategyResult<PublicDataWitness | null>> {
-    return this.execute<PublicDataWitness | null>("node_getPublicDataWitness", [blockNumber, leafSlot]);
+    return this.execute<PublicDataWitness | null>("node_getPublicDataWitness", [
+      blockNumber,
+      leafSlot,
+    ]);
   }
 
   async getArchiveMembershipWitness(
     blockNumber: BlockNumberOrLatest,
-    archive: string
+    archive: string,
   ): Promise<StrategyResult<MembershipWitness | null>> {
-    return this.execute<MembershipWitness | null>("node_getArchiveMembershipWitness", [blockNumber, archive]);
+    return this.execute<MembershipWitness | null>("node_getArchiveMembershipWitness", [
+      blockNumber,
+      archive,
+    ]);
   }
 
   async getNoteHashMembershipWitness(
     blockNumber: BlockNumberOrLatest,
-    noteHash: string
+    noteHash: string,
   ): Promise<StrategyResult<MembershipWitness | null>> {
-    return this.execute<MembershipWitness | null>("node_getNoteHashMembershipWitness", [blockNumber, noteHash]);
+    return this.execute<MembershipWitness | null>("node_getNoteHashMembershipWitness", [
+      blockNumber,
+      noteHash,
+    ]);
   }
 
   // ===== L1 ↔ L2 Message Queries =====
 
   async getL1ToL2MessageMembershipWitness(
     blockNumber: BlockNumberOrLatest,
-    l1ToL2Message: string
+    l1ToL2Message: string,
   ): Promise<StrategyResult<[string, string[]] | null>> {
     return this.execute<[string, string[]] | null>("node_getL1ToL2MessageMembershipWitness", [
       blockNumber,
@@ -222,7 +252,9 @@ export class AztecClient extends NetworkClient {
     return this.execute<boolean>("node_isL1ToL2MessageSynced", [l1ToL2Message]);
   }
 
-  async getL2ToL1Messages(blockNumber: BlockNumberOrLatest): Promise<StrategyResult<string[][] | null>> {
+  async getL2ToL1Messages(
+    blockNumber: BlockNumberOrLatest,
+  ): Promise<StrategyResult<string[][] | null>> {
     return this.execute<string[][] | null>("node_getL2ToL1Messages", [blockNumber]);
   }
 
@@ -236,14 +268,19 @@ export class AztecClient extends NetworkClient {
     return this.execute<GetPublicLogsResponse>("node_getPublicLogs", [filter]);
   }
 
-  async getContractClassLogs(filter: LogFilter): Promise<StrategyResult<GetContractClassLogsResponse>> {
+  async getContractClassLogs(
+    filter: LogFilter,
+  ): Promise<StrategyResult<GetContractClassLogsResponse>> {
     return this.execute<GetContractClassLogsResponse>("node_getContractClassLogs", [filter]);
   }
 
-  async getLogsByTags(tags: string[], logsPerTag?: number): Promise<StrategyResult<TxScopedL2Log[][]>> {
+  async getLogsByTags(
+    tags: string[],
+    logsPerTag?: number,
+  ): Promise<StrategyResult<TxScopedL2Log[][]>> {
     return this.execute<TxScopedL2Log[][]>(
       "node_getLogsByTags",
-      logsPerTag !== undefined ? [tags, logsPerTag] : [tags]
+      logsPerTag !== undefined ? [tags, logsPerTag] : [tags],
     );
   }
 
@@ -305,7 +342,7 @@ export class AztecClient extends NetworkClient {
   async getValidatorStats(
     validatorAddress: string,
     fromSlot?: string,
-    toSlot?: string
+    toSlot?: string,
   ): Promise<StrategyResult<SingleValidatorStats | null>> {
     const params: any[] = [validatorAddress];
     if (fromSlot !== undefined) params.push(fromSlot);
@@ -315,7 +352,9 @@ export class AztecClient extends NetworkClient {
 
   // ===== Debug Operations =====
 
-  async registerContractFunctionSignatures(functionSignatures: string[]): Promise<StrategyResult<void>> {
+  async registerContractFunctionSignatures(
+    functionSignatures: string[],
+  ): Promise<StrategyResult<void>> {
     return this.execute<void>("node_registerContractFunctionSignatures", [functionSignatures]);
   }
 
@@ -348,7 +387,7 @@ export class AztecClient extends NetworkClient {
   async rollbackTo(targetBlockNumber: number, force?: boolean): Promise<StrategyResult<void>> {
     return this.execute<void>(
       "nodeAdmin_rollbackTo",
-      force !== undefined ? [targetBlockNumber, force] : [targetBlockNumber]
+      force !== undefined ? [targetBlockNumber, force] : [targetBlockNumber],
     );
   }
 

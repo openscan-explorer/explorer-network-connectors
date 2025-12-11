@@ -2,10 +2,7 @@ import { describe, it } from "node:test";
 import assert from "node:assert";
 import { RpcClient } from "../src/RpcClient.js";
 
-const TEST_URLS: string[] = [
-  "https://eth.merkle.io",
-  "https://ethereum.publicnode.com",
-];
+const TEST_URLS: string[] = ["https://eth.merkle.io", "https://ethereum.publicnode.com"];
 
 function isHexString(value: string): boolean {
   return typeof value === "string" && /^0x[0-9a-fA-F]*$/.test(value);
@@ -30,7 +27,7 @@ describe("RpcClient - Constructor and Basic Properties", () => {
 
       await client.call("eth_blockNumber");
       assert.strictEqual(client.getRequestId(), initialId + 2, "Request ID should increment again");
-    } catch (error) {
+    } catch (_error) {
       // Ignore RPC errors for this test - we're testing ID increment
     }
   });
@@ -87,7 +84,7 @@ describe("RpcClient - Error Handling", () => {
     await assert.rejects(
       client.call("eth_chainId"),
       /error/i,
-      "Should reject with error for invalid URL"
+      "Should reject with error for invalid URL",
     );
   });
 
@@ -97,7 +94,7 @@ describe("RpcClient - Error Handling", () => {
     await assert.rejects(
       client.call("invalid_method_that_does_not_exist"),
       /error/i,
-      "Should reject with error for invalid method"
+      "Should reject with error for invalid method",
     );
   });
 
@@ -107,7 +104,7 @@ describe("RpcClient - Error Handling", () => {
     await assert.rejects(
       client.call("eth_getBlockByNumber", ["invalid_block", false]),
       /error/i,
-      "Should reject with error for invalid params"
+      "Should reject with error for invalid params",
     );
   });
 });

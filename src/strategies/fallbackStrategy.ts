@@ -1,9 +1,8 @@
 import type { RequestStrategy, StrategyResult, RPCProviderResponse } from "./strategiesTypes.js";
-import { RpcClient } from "../RpcClient.js";
-
+import type { RpcClient } from "../RpcClient.js";
 
 export class FallbackStrategy implements RequestStrategy {
-  private rpcClients: RpcClient[]
+  private rpcClients: RpcClient[];
   constructor(rpcClients: RpcClient[]) {
     if (rpcClients.length === 0) {
       throw new Error("At least one RPC client must be provided");
@@ -15,6 +14,8 @@ export class FallbackStrategy implements RequestStrategy {
    * Execute request with automatic fallback
    * Tries each RPC client sequentially until one succeeds
    */
+
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async execute<T>(method: string, params: any[]): Promise<StrategyResult<T>> {
     const errors: RPCProviderResponse[] = [];
 
@@ -54,4 +55,3 @@ export class FallbackStrategy implements RequestStrategy {
     return "fallback";
   }
 }
-

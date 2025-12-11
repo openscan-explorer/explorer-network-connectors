@@ -8,7 +8,7 @@ import { StrategyFactory, type StrategyConfig } from "./strategies/requestStrate
 export class NetworkClient {
   protected strategy: RequestStrategy;
   protected rpcUrls: string[];
-  
+
   constructor(config: StrategyConfig) {
     this.strategy = StrategyFactory.create(config);
     this.rpcUrls = config.rpcUrls;
@@ -20,6 +20,7 @@ export class NetworkClient {
    * @param params - The method parameters
    * @returns Strategy result with data and optional metadata
    */
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async execute<T>(method: string, params: any[] = []): Promise<StrategyResult<T>> {
     return this.strategy.execute<T>(method, params);
   }
@@ -41,7 +42,7 @@ export class NetworkClient {
   /**
    * Get the RPC URLs
    */
-  getRpcUrls():  string[] {
+  getRpcUrls(): string[] {
     return this.rpcUrls;
   }
 
@@ -53,6 +54,5 @@ export class NetworkClient {
       type,
       rpcUrls: this.rpcUrls,
     });
-
   }
 }

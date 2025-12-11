@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 // Ethereum L1 RPC Types
 
 export type BlockTag = "latest" | "earliest" | "pending" | "finalized" | "safe";

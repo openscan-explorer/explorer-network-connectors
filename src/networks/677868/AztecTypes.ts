@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 // Aztec Node RPC Types
 
 export type BlockNumberOrLatest = number | "latest";
@@ -118,49 +119,50 @@ export interface ContractInstanceWithAddress {
 
 // Node Info Types
 export interface NodeInfo {
-  nodeVersion: string
-  l1ChainId: number
-  rollupVersion: number
-  l1ContractAddresses: L1ContractAddresses
-  protocolContractAddresses: ProtocolContractAddresses
+  nodeVersion: string;
+  l1ChainId: number;
+  rollupVersion: number;
+  l1ContractAddresses: L1ContractAddresses;
+  protocolContractAddresses: ProtocolContractAddresses;
 }
 
 export interface L1ContractAddresses {
-  registryAddress: string
-  slashFactoryAddress: string
-  feeAssetHandlerAddress: string
-  rollupAddress: string
-  inboxAddress: string
-  outboxAddress: string
-  feeJuiceAddress: string
-  stakingAssetAddress: string
-  feeJuicePortalAddress: string
-  coinIssuerAddress: string
-  rewardDistributorAddress: string
-  governanceProposerAddress: string
-  governanceAddress: string
-  stakingAssetHandlerAddress: string
-  gseAddress: string
-  zkPassportVerifierAddress: string
-  dateGatedRelayerAddress: string
+  registryAddress: string;
+  slashFactoryAddress: string;
+  feeAssetHandlerAddress: string;
+  rollupAddress: string;
+  inboxAddress: string;
+  outboxAddress: string;
+  feeJuiceAddress: string;
+  stakingAssetAddress: string;
+  feeJuicePortalAddress: string;
+  coinIssuerAddress: string;
+  rewardDistributorAddress: string;
+  governanceProposerAddress: string;
+  governanceAddress: string;
+  stakingAssetHandlerAddress: string;
+  gseAddress: string;
+  zkPassportVerifierAddress: string;
+  dateGatedRelayerAddress: string;
 }
 
 export interface ProtocolContractAddresses {
-  classRegistry: string
-  feeJuice: string
-  instanceRegistry: string
-  multiCallEntrypoint: string
+  classRegistry: string;
+  feeJuice: string;
+  instanceRegistry: string;
+  multiCallEntrypoint: string;
 }
 
 export interface GasFees {
-  feePerDaGas: string
-  feePerL2Gas: string
+  feePerDaGas: string;
+  feePerL2Gas: string;
 }
 
 // Validator Types
 export interface ValidatorsStats {
-  slotWindow: number
-  stats: {}
+  slotWindow: number;
+  // biome-ignore lint/complexity/noBannedTypes: <TODO>
+  stats: {};
 }
 
 export interface SingleValidatorStats {

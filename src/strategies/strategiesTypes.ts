@@ -30,7 +30,9 @@ export interface RequestStrategy {
    * @param params - The RPC method parameters
    * @returns Strategy result with data and optional metadata
    */
-  execute<T>(method: string, params: any[]): Promise<StrategyResult<T>>;
+  
+// biome-ignore lint/suspicious/noExplicitAny: <TODO>
+execute<T>(method: string, params: any[]): Promise<StrategyResult<T>>;
 
   /**
    * Get the strategy name for logging/debugging

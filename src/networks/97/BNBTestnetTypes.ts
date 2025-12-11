@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 // BNB Smart Chain Testnet RPC Types
 // Chain ID: 97
 // BSC Testnet is fully compatible with BSC mainnet API

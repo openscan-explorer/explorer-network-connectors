@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 import { NetworkClient } from "../../NetworkClient.js";
 import type { StrategyResult } from "../../strategies/strategiesTypes.js";
 import type { StrategyConfig } from "../../strategies/requestStrategy.js";
@@ -93,15 +94,23 @@ export class SepoliaClient extends NetworkClient {
     return this.execute<string>("eth_blockNumber");
   }
 
-  async getBlockByNumber(blockTag: BlockNumberOrTag, fullTx: boolean = false): Promise<StrategyResult<SepoliaBlock | null>> {
+  async getBlockByNumber(
+    blockTag: BlockNumberOrTag,
+    fullTx: boolean = false,
+  ): Promise<StrategyResult<SepoliaBlock | null>> {
     return this.execute<SepoliaBlock | null>("eth_getBlockByNumber", [blockTag, fullTx]);
   }
 
-  async getBlockByHash(blockHash: string, fullTx: boolean = false): Promise<StrategyResult<SepoliaBlock | null>> {
+  async getBlockByHash(
+    blockHash: string,
+    fullTx: boolean = false,
+  ): Promise<StrategyResult<SepoliaBlock | null>> {
     return this.execute<SepoliaBlock | null>("eth_getBlockByHash", [blockHash, fullTx]);
   }
 
-  async getBlockTransactionCountByNumber(blockTag: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async getBlockTransactionCountByNumber(
+    blockTag: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getBlockTransactionCountByNumber", [blockTag]);
   }
 
@@ -117,31 +126,57 @@ export class SepoliaClient extends NetworkClient {
     return this.execute<string>("eth_getUncleCountByBlockHash", [blockHash]);
   }
 
-  async getUncleByBlockNumberAndIndex(blockTag: BlockNumberOrTag, index: string): Promise<StrategyResult<SepoliaBlock | null>> {
-    return this.execute<SepoliaBlock | null>("eth_getUncleByBlockNumberAndIndex", [blockTag, index]);
+  async getUncleByBlockNumberAndIndex(
+    blockTag: BlockNumberOrTag,
+    index: string,
+  ): Promise<StrategyResult<SepoliaBlock | null>> {
+    return this.execute<SepoliaBlock | null>("eth_getUncleByBlockNumberAndIndex", [
+      blockTag,
+      index,
+    ]);
   }
 
-  async getUncleByBlockHashAndIndex(blockHash: string, index: string): Promise<StrategyResult<SepoliaBlock | null>> {
+  async getUncleByBlockHashAndIndex(
+    blockHash: string,
+    index: string,
+  ): Promise<StrategyResult<SepoliaBlock | null>> {
     return this.execute<SepoliaBlock | null>("eth_getUncleByBlockHashAndIndex", [blockHash, index]);
   }
 
-  async getBalance(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getBalance(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getBalance", [address, blockTag]);
   }
 
-  async getCode(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getCode(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getCode", [address, blockTag]);
   }
 
-  async getStorageAt(address: string, position: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getStorageAt(
+    address: string,
+    position: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getStorageAt", [address, position, blockTag]);
   }
 
-  async getTransactionCount(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getTransactionCount(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getTransactionCount", [address, blockTag]);
   }
 
-  async getProof(address: string, storageKeys: string[], blockTag: BlockNumberOrTag): Promise<StrategyResult<unknown>> {
+  async getProof(
+    address: string,
+    storageKeys: string[],
+    blockTag: BlockNumberOrTag,
+  ): Promise<StrategyResult<unknown>> {
     return this.execute<unknown>("eth_getProof", [address, storageKeys, blockTag]);
   }
 
@@ -153,13 +188,19 @@ export class SepoliaClient extends NetworkClient {
     return this.execute<string>("eth_sendTransaction", [txObject]);
   }
 
-  async call(callObject: SepoliaCallObject, blockTag?: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async call(
+    callObject: SepoliaCallObject,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     const params: any[] = [callObject];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<string>("eth_call", params);
   }
 
-  async estimateGas(txObject: SepoliaCallObject, blockTag?: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async estimateGas(
+    txObject: SepoliaCallObject,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     const params: any[] = [txObject];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<string>("eth_estimateGas", params);
@@ -167,11 +208,14 @@ export class SepoliaClient extends NetworkClient {
 
   async createAccessList(
     txObject: SepoliaCallObject,
-    blockTag?: BlockNumberOrTag
+    blockTag?: BlockNumberOrTag,
   ): Promise<StrategyResult<{ accessList: AccessListEntry[]; gasUsed: string }>> {
     const params: any[] = [txObject];
     if (blockTag !== undefined) params.push(blockTag);
-    return this.execute<{ accessList: AccessListEntry[]; gasUsed: string }>("eth_createAccessList", params);
+    return this.execute<{ accessList: AccessListEntry[]; gasUsed: string }>(
+      "eth_createAccessList",
+      params,
+    );
   }
 
   // ===== Block / Transaction Queries =====
@@ -180,18 +224,29 @@ export class SepoliaClient extends NetworkClient {
     return this.execute<SepoliaTransaction | null>("eth_getTransactionByHash", [txHash]);
   }
 
-  async getTransactionByBlockHashAndIndex(blockHash: string, index: string): Promise<StrategyResult<SepoliaTransaction | null>> {
-    return this.execute<SepoliaTransaction | null>("eth_getTransactionByBlockHashAndIndex", [blockHash, index]);
+  async getTransactionByBlockHashAndIndex(
+    blockHash: string,
+    index: string,
+  ): Promise<StrategyResult<SepoliaTransaction | null>> {
+    return this.execute<SepoliaTransaction | null>("eth_getTransactionByBlockHashAndIndex", [
+      blockHash,
+      index,
+    ]);
   }
 
   async getTransactionByBlockNumberAndIndex(
     blockTag: BlockNumberOrTag,
-    index: string
+    index: string,
   ): Promise<StrategyResult<SepoliaTransaction | null>> {
-    return this.execute<SepoliaTransaction | null>("eth_getTransactionByBlockNumberAndIndex", [blockTag, index]);
+    return this.execute<SepoliaTransaction | null>("eth_getTransactionByBlockNumberAndIndex", [
+      blockTag,
+      index,
+    ]);
   }
 
-  async getTransactionReceipt(txHash: string): Promise<StrategyResult<SepoliaTransactionReceipt | null>> {
+  async getTransactionReceipt(
+    txHash: string,
+  ): Promise<StrategyResult<SepoliaTransactionReceipt | null>> {
     return this.execute<SepoliaTransactionReceipt | null>("eth_getTransactionReceipt", [txHash]);
   }
 
@@ -235,7 +290,11 @@ export class SepoliaClient extends NetworkClient {
     return this.execute<string>("eth_maxPriorityFeePerGas");
   }
 
-  async feeHistory(blockCount: string, newestBlock: BlockNumberOrTag, rewardPercentiles?: number[]): Promise<StrategyResult<any>> {
+  async feeHistory(
+    blockCount: string,
+    newestBlock: BlockNumberOrTag,
+    rewardPercentiles?: number[],
+  ): Promise<StrategyResult<any>> {
     const params: any[] = [blockCount, newestBlock];
     if (rewardPercentiles !== undefined) params.push(rewardPercentiles);
     return this.execute<any>("eth_feeHistory", params);
@@ -255,7 +314,11 @@ export class SepoliaClient extends NetworkClient {
     return this.execute<string[]>("eth_getWork");
   }
 
-  async submitWork(nonce: string, powHash: string, digest: string): Promise<StrategyResult<boolean>> {
+  async submitWork(
+    nonce: string,
+    powHash: string,
+    digest: string,
+  ): Promise<StrategyResult<boolean>> {
     return this.execute<boolean>("eth_submitWork", [nonce, powHash, digest]);
   }
 
@@ -279,11 +342,18 @@ export class SepoliaClient extends NetworkClient {
 
   // ===== Debug Methods =====
 
-  async debugTraceTransaction(txHash: string, options: Record<string, any> = {}): Promise<StrategyResult<any>> {
+  async debugTraceTransaction(
+    txHash: string,
+    options: Record<string, any> = {},
+  ): Promise<StrategyResult<any>> {
     return this.execute<any>("debug_traceTransaction", [txHash, options]);
   }
 
-  async debugTraceCall(callObject: SepoliaCallObject, options: Record<string, any>, blockTag?: BlockNumberOrTag): Promise<StrategyResult<any>> {
+  async debugTraceCall(
+    callObject: SepoliaCallObject,
+    options: Record<string, any>,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<any>> {
     const params: any[] = [callObject, options];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<any>("debug_traceCall", params);
@@ -294,12 +364,22 @@ export class SepoliaClient extends NetworkClient {
     txIndex: number,
     address: string,
     startKey: string,
-    maxResults: number
+    maxResults: number,
   ): Promise<StrategyResult<any>> {
-    return this.execute<any>("debug_storageRangeAt", [blockHash, txIndex, address, startKey, maxResults]);
+    return this.execute<any>("debug_storageRangeAt", [
+      blockHash,
+      txIndex,
+      address,
+      startKey,
+      maxResults,
+    ]);
   }
 
-  async debugAccountRange(blockTag: BlockNumberOrTag, start: string, maxResults: number): Promise<StrategyResult<any>> {
+  async debugAccountRange(
+    blockTag: BlockNumberOrTag,
+    start: string,
+    maxResults: number,
+  ): Promise<StrategyResult<any>> {
     return this.execute<any>("debug_accountRange", [blockTag, start, maxResults]);
   }
 
@@ -321,13 +401,20 @@ export class SepoliaClient extends NetworkClient {
     return this.execute<any>("trace_transaction", [txHash]);
   }
 
-  async traceCall(callObject: SepoliaCallObject, options: Record<string, any>, blockTag?: BlockNumberOrTag): Promise<StrategyResult<any>> {
+  async traceCall(
+    callObject: SepoliaCallObject,
+    options: Record<string, any>,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<any>> {
     const params: any[] = [callObject, options];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<any>("trace_call", params);
   }
 
-  async traceRawTransaction(signedTx: string, options: Record<string, any>): Promise<StrategyResult<any>> {
+  async traceRawTransaction(
+    signedTx: string,
+    options: Record<string, any>,
+  ): Promise<StrategyResult<any>> {
     return this.execute<any>("trace_rawTransaction", [signedTx, options]);
   }
 

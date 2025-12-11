@@ -1,11 +1,14 @@
-import type { RequestStrategy, StrategyResult, RPCProviderResponse, RPCMetadata } from "./strategiesTypes.js";
-import { RpcClient } from "../RpcClient.js";
+import type {
+  RequestStrategy,
+  StrategyResult,
+  RPCProviderResponse,
+  RPCMetadata,
+} from "./strategiesTypes.js";
+import type { RpcClient } from "../RpcClient.js";
 
 export class ParallelStrategy implements RequestStrategy {
-  private rpcClients: RpcClient[]
-  constructor(
-    rpcClients: RpcClient[],
-  ) {
+  private rpcClients: RpcClient[];
+  constructor(rpcClients: RpcClient[]) {
     if (rpcClients.length === 0) {
       throw new Error("At least one RPC client must be provided");
     }
@@ -16,7 +19,9 @@ export class ParallelStrategy implements RequestStrategy {
    * Execute request in parallel across all RPC clients
    * Returns all responses with metadata including response times, hashes, and inconsistency detection
    */
-  async execute<T>(method: string, params: any[]): Promise<StrategyResult<T>> {
+  
+// biome-ignore lint/suspicious/noExplicitAny: <TODO>
+async  execute<T>(method: string, params: any[]): Promise<StrategyResult<T>> {
     const timestamp = Date.now();
 
     // Create promises for all RPC clients
@@ -25,7 +30,7 @@ export class ParallelStrategy implements RequestStrategy {
       try {
         const data = await rpcClient.call<T>(method, params);
         const responseTime = Date.now() - startTime;
-        const hash = this.hashResponse(data);
+        const hash = this.hashResponse(data as object);
 
         return {
           url: rpcClient.getUrl(),
@@ -84,7 +89,7 @@ export class ParallelStrategy implements RequestStrategy {
       // Return all responses in data field (type cast needed since data contains responses array)
       return {
         success: true,
-        data: responses as any as T,
+        data: responses as object as T,
         metadata,
       };
     }
@@ -101,18 +106,18 @@ export class ParallelStrategy implements RequestStrategy {
    * Generate a hash of the response for comparison
    * Uses a simple string-based hash for browser compatibility
    */
-  private hashResponse(data: any): string {
+  private hashResponse(data: object): string {
     try {
       const normalized = JSON.stringify(data, Object.keys(data).sort());
       // Simple hash function for comparison (not cryptographic)
       let hash = 0;
       for (let i = 0; i < normalized.length; i++) {
         const char = normalized.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
+        hash = (hash << 5) - hash + char;
         hash = hash & hash; // Convert to 32-bit integer
       }
       return hash.toString(36);
-    } catch (error) {
+    } catch (_error) {
       // If hashing fails, return empty string
       return "";
     }

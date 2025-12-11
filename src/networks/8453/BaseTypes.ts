@@ -1,4 +1,5 @@
 // Base L2 RPC Types
+/** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 // Chain ID: 8453
 // Base is built on the OP Stack and shares the same RPC methods as Optimism
 
@@ -319,7 +320,7 @@ export interface JsonRpcRequest {
   jsonrpc: "2.0";
   id: number | string;
   method: string;
-  params?: any[];
+  params?: string[];
 }
 
 export interface JsonRpcResponse<T = any> {

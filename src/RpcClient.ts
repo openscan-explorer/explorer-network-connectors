@@ -8,6 +8,7 @@ export class RpcClient {
     this.url = url;
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async call<T>(method: string, params: any[] = []): Promise<T> {
     const request: JsonRpcRequest = {
       jsonrpc: "2.0",
@@ -28,7 +29,7 @@ export class RpcClient {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const result: JsonRpcResponse<T> = await response.json() as JsonRpcResponse<T>;
+    const result: JsonRpcResponse<T> = (await response.json()) as JsonRpcResponse<T>;
 
     if (result.error) {
       throw new Error(`RPC error: ${result.error.message}`);

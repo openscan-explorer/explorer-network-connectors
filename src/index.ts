@@ -169,7 +169,11 @@ export type {
 
 // Client Factory (Chain ID-based instantiation)
 export { ClientFactory } from "./factory/ClientRegistry.js";
-export type { SupportedChainId, ClientConstructor, ChainIdToClient } from "./factory/ClientRegistry.js";
+export type {
+  SupportedChainId,
+  ClientConstructor,
+  ChainIdToClient,
+} from "./factory/ClientRegistry.js";
 
 // Strategy types and factory
 export { StrategyFactory } from "./strategies/requestStrategy.js";

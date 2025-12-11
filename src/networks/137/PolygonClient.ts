@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 import { NetworkClient } from "../../NetworkClient.js";
 import type { StrategyResult } from "../../strategies/strategiesTypes.js";
 import type { StrategyConfig } from "../../strategies/requestStrategy.js";
@@ -188,7 +189,7 @@ export class PolygonClient extends NetworkClient {
    */
   async getBlockByNumber(
     blockTag: BlockNumberOrTag,
-    fullTx: boolean = false
+    fullTx: boolean = false,
   ): Promise<StrategyResult<PolygonBlock | null>> {
     return this.execute<PolygonBlock | null>("eth_getBlockByNumber", [blockTag, fullTx]);
   }
@@ -201,7 +202,7 @@ export class PolygonClient extends NetworkClient {
    */
   async getBlockByHash(
     blockHash: string,
-    fullTx: boolean = false
+    fullTx: boolean = false,
   ): Promise<StrategyResult<PolygonBlock | null>> {
     return this.execute<PolygonBlock | null>("eth_getBlockByHash", [blockHash, fullTx]);
   }
@@ -211,7 +212,9 @@ export class PolygonClient extends NetworkClient {
    * @param blockTag - Block number or tag
    * @returns {StrategyResult<string>} Transaction count (hex)
    */
-  async getBlockTransactionCountByNumber(blockTag: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async getBlockTransactionCountByNumber(
+    blockTag: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getBlockTransactionCountByNumber", [blockTag]);
   }
 
@@ -250,9 +253,12 @@ export class PolygonClient extends NetworkClient {
    */
   async getUncleByBlockNumberAndIndex(
     blockTag: BlockNumberOrTag,
-    index: string
+    index: string,
   ): Promise<StrategyResult<PolygonBlock | null>> {
-    return this.execute<PolygonBlock | null>("eth_getUncleByBlockNumberAndIndex", [blockTag, index]);
+    return this.execute<PolygonBlock | null>("eth_getUncleByBlockNumberAndIndex", [
+      blockTag,
+      index,
+    ]);
   }
 
   /**
@@ -263,7 +269,7 @@ export class PolygonClient extends NetworkClient {
    */
   async getUncleByBlockHashAndIndex(
     blockHash: string,
-    index: string
+    index: string,
   ): Promise<StrategyResult<PolygonBlock | null>> {
     return this.execute<PolygonBlock | null>("eth_getUncleByBlockHashAndIndex", [blockHash, index]);
   }
@@ -276,7 +282,10 @@ export class PolygonClient extends NetworkClient {
    * @param blockTag - Block number or tag (default: latest)
    * @returns {StrategyResult<string>} Balance in wei (hex)
    */
-  async getBalance(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getBalance(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getBalance", [address, blockTag]);
   }
 
@@ -286,7 +295,10 @@ export class PolygonClient extends NetworkClient {
    * @param blockTag - Block number or tag (default: latest)
    * @returns {StrategyResult<string>} Contract bytecode
    */
-  async getCode(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getCode(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getCode", [address, blockTag]);
   }
 
@@ -300,7 +312,7 @@ export class PolygonClient extends NetworkClient {
   async getStorageAt(
     address: string,
     position: string,
-    blockTag: BlockNumberOrTag = "latest"
+    blockTag: BlockNumberOrTag = "latest",
   ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getStorageAt", [address, position, blockTag]);
   }
@@ -313,7 +325,7 @@ export class PolygonClient extends NetworkClient {
    */
   async getTransactionCount(
     address: string,
-    blockTag: BlockNumberOrTag = "latest"
+    blockTag: BlockNumberOrTag = "latest",
   ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getTransactionCount", [address, blockTag]);
   }
@@ -328,7 +340,7 @@ export class PolygonClient extends NetworkClient {
   async getProof(
     address: string,
     storageKeys: string[],
-    blockTag: BlockNumberOrTag
+    blockTag: BlockNumberOrTag,
   ): Promise<StrategyResult<unknown>> {
     return this.execute<unknown>("eth_getProof", [address, storageKeys, blockTag]);
   }
@@ -352,9 +364,12 @@ export class PolygonClient extends NetworkClient {
    */
   async getTransactionByBlockHashAndIndex(
     blockHash: string,
-    index: string
+    index: string,
   ): Promise<StrategyResult<PolygonTransaction | null>> {
-    return this.execute<PolygonTransaction | null>("eth_getTransactionByBlockHashAndIndex", [blockHash, index]);
+    return this.execute<PolygonTransaction | null>("eth_getTransactionByBlockHashAndIndex", [
+      blockHash,
+      index,
+    ]);
   }
 
   /**
@@ -365,9 +380,12 @@ export class PolygonClient extends NetworkClient {
    */
   async getTransactionByBlockNumberAndIndex(
     blockTag: BlockNumberOrTag,
-    index: string
+    index: string,
   ): Promise<StrategyResult<PolygonTransaction | null>> {
-    return this.execute<PolygonTransaction | null>("eth_getTransactionByBlockNumberAndIndex", [blockTag, index]);
+    return this.execute<PolygonTransaction | null>("eth_getTransactionByBlockNumberAndIndex", [
+      blockTag,
+      index,
+    ]);
   }
 
   /**
@@ -375,7 +393,9 @@ export class PolygonClient extends NetworkClient {
    * @param txHash - Transaction hash
    * @returns {StrategyResult} Transaction receipt or null
    */
-  async getTransactionReceipt(txHash: string): Promise<StrategyResult<PolygonTransactionReceipt | null>> {
+  async getTransactionReceipt(
+    txHash: string,
+  ): Promise<StrategyResult<PolygonTransactionReceipt | null>> {
     return this.execute<PolygonTransactionReceipt | null>("eth_getTransactionReceipt", [txHash]);
   }
 
@@ -405,7 +425,10 @@ export class PolygonClient extends NetworkClient {
    * @param blockTag - Block number or tag (optional)
    * @returns {StrategyResult<string>} Return data
    */
-  async call(callObject: PolygonCallObject, blockTag?: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async call(
+    callObject: PolygonCallObject,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     const params: any[] = [callObject];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<string>("eth_call", params);
@@ -417,7 +440,10 @@ export class PolygonClient extends NetworkClient {
    * @param blockTag - Block number or tag (optional)
    * @returns {StrategyResult<string>} Estimated gas (hex)
    */
-  async estimateGas(txObject: PolygonCallObject, blockTag?: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async estimateGas(
+    txObject: PolygonCallObject,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     const params: any[] = [txObject];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<string>("eth_estimateGas", params);
@@ -431,11 +457,14 @@ export class PolygonClient extends NetworkClient {
    */
   async createAccessList(
     txObject: PolygonCallObject,
-    blockTag?: BlockNumberOrTag
+    blockTag?: BlockNumberOrTag,
   ): Promise<StrategyResult<{ accessList: AccessListEntry[]; gasUsed: string }>> {
     const params: any[] = [txObject];
     if (blockTag !== undefined) params.push(blockTag);
-    return this.execute<{ accessList: AccessListEntry[]; gasUsed: string }>("eth_createAccessList", params);
+    return this.execute<{ accessList: AccessListEntry[]; gasUsed: string }>(
+      "eth_createAccessList",
+      params,
+    );
   }
 
   // ===== Fee Methods (EIP-1559) =====
@@ -466,7 +495,7 @@ export class PolygonClient extends NetworkClient {
   async feeHistory(
     blockCount: string,
     newestBlock: BlockNumberOrTag,
-    rewardPercentiles?: number[]
+    rewardPercentiles?: number[],
   ): Promise<StrategyResult<any>> {
     const params: any[] = [blockCount, newestBlock];
     if (rewardPercentiles !== undefined) params.push(rewardPercentiles);
@@ -570,7 +599,10 @@ export class PolygonClient extends NetworkClient {
    * @param options - Trace options
    * @returns {StrategyResult} Trace result
    */
-  async debugTraceTransaction(txHash: string, options: Record<string, any> = {}): Promise<StrategyResult<any>> {
+  async debugTraceTransaction(
+    txHash: string,
+    options: Record<string, any> = {},
+  ): Promise<StrategyResult<any>> {
     return this.execute<any>("debug_traceTransaction", [txHash, options]);
   }
 
@@ -584,7 +616,7 @@ export class PolygonClient extends NetworkClient {
   async debugTraceCall(
     callObject: PolygonCallObject,
     blockTag: BlockNumberOrTag,
-    options: Record<string, any> = {}
+    options: Record<string, any> = {},
   ): Promise<StrategyResult<any>> {
     return this.execute<any>("debug_traceCall", [callObject, blockTag, options]);
   }
@@ -603,9 +635,15 @@ export class PolygonClient extends NetworkClient {
     txIndex: number,
     address: string,
     startKey: string,
-    maxResults: number
+    maxResults: number,
   ): Promise<StrategyResult<any>> {
-    return this.execute<any>("debug_storageRangeAt", [blockHash, txIndex, address, startKey, maxResults]);
+    return this.execute<any>("debug_storageRangeAt", [
+      blockHash,
+      txIndex,
+      address,
+      startKey,
+      maxResults,
+    ]);
   }
 
   // ===== Trace Methods =====
@@ -638,7 +676,7 @@ export class PolygonClient extends NetworkClient {
   async traceCall(
     callObject: PolygonCallObject,
     traceTypes: string[],
-    blockTag?: BlockNumberOrTag
+    blockTag?: BlockNumberOrTag,
   ): Promise<StrategyResult<any>> {
     const params: any[] = [callObject, traceTypes];
     if (blockTag !== undefined) params.push(blockTag);
@@ -697,7 +735,11 @@ export class PolygonClient extends NetworkClient {
    * @param digest - Mix digest
    * @returns {StrategyResult<boolean>} True if work was valid
    */
-  async submitWork(nonce: string, powHash: string, digest: string): Promise<StrategyResult<boolean>> {
+  async submitWork(
+    nonce: string,
+    powHash: string,
+    digest: string,
+  ): Promise<StrategyResult<boolean>> {
     return this.execute<boolean>("eth_submitWork", [nonce, powHash, digest]);
   }
 

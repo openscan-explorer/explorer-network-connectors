@@ -305,19 +305,21 @@ export class OptimismClient extends NetworkClient {
 
   async getBlockByNumber(
     blockTag: BlockNumberOrTag,
-    fullTx: boolean = false
+    fullTx: boolean = false,
   ): Promise<StrategyResult<OptimismBlock | null>> {
     return this.execute<OptimismBlock | null>("eth_getBlockByNumber", [blockTag, fullTx]);
   }
 
   async getBlockByHash(
     blockHash: string,
-    fullTx: boolean = false
+    fullTx: boolean = false,
   ): Promise<StrategyResult<OptimismBlock | null>> {
     return this.execute<OptimismBlock | null>("eth_getBlockByHash", [blockHash, fullTx]);
   }
 
-  async getBlockTransactionCountByNumber(blockTag: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async getBlockTransactionCountByNumber(
+    blockTag: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getBlockTransactionCountByNumber", [blockTag]);
   }
 
@@ -335,37 +337,49 @@ export class OptimismClient extends NetworkClient {
 
   async getUncleByBlockNumberAndIndex(
     blockTag: BlockNumberOrTag,
-    index: string
+    index: string,
   ): Promise<StrategyResult<OptimismBlock | null>> {
-    return this.execute<OptimismBlock | null>("eth_getUncleByBlockNumberAndIndex", [blockTag, index]);
+    return this.execute<OptimismBlock | null>("eth_getUncleByBlockNumberAndIndex", [
+      blockTag,
+      index,
+    ]);
   }
 
   async getUncleByBlockHashAndIndex(
     blockHash: string,
-    index: string
+    index: string,
   ): Promise<StrategyResult<OptimismBlock | null>> {
-    return this.execute<OptimismBlock | null>("eth_getUncleByBlockHashAndIndex", [blockHash, index]);
+    return this.execute<OptimismBlock | null>("eth_getUncleByBlockHashAndIndex", [
+      blockHash,
+      index,
+    ]);
   }
 
-  async getBalance(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getBalance(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getBalance", [address, blockTag]);
   }
 
-  async getCode(address: string, blockTag: BlockNumberOrTag = "latest"): Promise<StrategyResult<string>> {
+  async getCode(
+    address: string,
+    blockTag: BlockNumberOrTag = "latest",
+  ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getCode", [address, blockTag]);
   }
 
   async getStorageAt(
     address: string,
     position: string,
-    blockTag: BlockNumberOrTag = "latest"
+    blockTag: BlockNumberOrTag = "latest",
   ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getStorageAt", [address, position, blockTag]);
   }
 
   async getTransactionCount(
     address: string,
-    blockTag: BlockNumberOrTag = "latest"
+    blockTag: BlockNumberOrTag = "latest",
   ): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_getTransactionCount", [address, blockTag]);
   }
@@ -373,7 +387,7 @@ export class OptimismClient extends NetworkClient {
   async getProof(
     address: string,
     storageKeys: string[],
-    blockTag: BlockNumberOrTag
+    blockTag: BlockNumberOrTag,
   ): Promise<StrategyResult<unknown>> {
     return this.execute<unknown>("eth_getProof", [address, storageKeys, blockTag]);
   }
@@ -382,17 +396,26 @@ export class OptimismClient extends NetworkClient {
     return this.execute<string>("eth_sendRawTransaction", [signedTx]);
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async sendTransaction(txObject: Record<string, any>): Promise<StrategyResult<string>> {
     return this.execute<string>("eth_sendTransaction", [txObject]);
   }
 
-  async callContract(callObject: OptimismCallObject, blockTag?: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async callContract(
+    callObject: OptimismCallObject,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     const params: any[] = [callObject];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<string>("eth_call", params);
   }
 
-  async estimateGas(txObject: OptimismCallObject, blockTag?: BlockNumberOrTag): Promise<StrategyResult<string>> {
+  async estimateGas(
+    txObject: OptimismCallObject,
+    blockTag?: BlockNumberOrTag,
+  ): Promise<StrategyResult<string>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     const params: any[] = [txObject];
     if (blockTag !== undefined) params.push(blockTag);
     return this.execute<string>("eth_estimateGas", params);
@@ -400,11 +423,15 @@ export class OptimismClient extends NetworkClient {
 
   async createAccessList(
     txObject: OptimismCallObject,
-    blockTag?: BlockNumberOrTag
+    blockTag?: BlockNumberOrTag,
   ): Promise<StrategyResult<{ accessList: AccessListEntry[]; gasUsed: string }>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     const params: any[] = [txObject];
     if (blockTag !== undefined) params.push(blockTag);
-    return this.execute<{ accessList: AccessListEntry[]; gasUsed: string }>("eth_createAccessList", params);
+    return this.execute<{ accessList: AccessListEntry[]; gasUsed: string }>(
+      "eth_createAccessList",
+      params,
+    );
   }
 
   // ===== Block / Transaction Queries =====
@@ -415,19 +442,27 @@ export class OptimismClient extends NetworkClient {
 
   async getTransactionByBlockHashAndIndex(
     blockHash: string,
-    index: string
+    index: string,
   ): Promise<StrategyResult<OptimismTransaction | null>> {
-    return this.execute<OptimismTransaction | null>("eth_getTransactionByBlockHashAndIndex", [blockHash, index]);
+    return this.execute<OptimismTransaction | null>("eth_getTransactionByBlockHashAndIndex", [
+      blockHash,
+      index,
+    ]);
   }
 
   async getTransactionByBlockNumberAndIndex(
     blockTag: BlockNumberOrTag,
-    index: string
+    index: string,
   ): Promise<StrategyResult<OptimismTransaction | null>> {
-    return this.execute<OptimismTransaction | null>("eth_getTransactionByBlockNumberAndIndex", [blockTag, index]);
+    return this.execute<OptimismTransaction | null>("eth_getTransactionByBlockNumberAndIndex", [
+      blockTag,
+      index,
+    ]);
   }
 
-  async getTransactionReceipt(txHash: string): Promise<StrategyResult<OptimismTransactionReceipt | null>> {
+  async getTransactionReceipt(
+    txHash: string,
+  ): Promise<StrategyResult<OptimismTransactionReceipt | null>> {
     return this.execute<OptimismTransactionReceipt | null>("eth_getTransactionReceipt", [txHash]);
   }
 
@@ -449,7 +484,9 @@ export class OptimismClient extends NetworkClient {
     return this.execute<boolean>("eth_uninstallFilter", [filterId]);
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async getFilterChanges(filterId: string): Promise<StrategyResult<any[]>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any[]>("eth_getFilterChanges", [filterId]);
   }
 
@@ -474,10 +511,13 @@ export class OptimismClient extends NetworkClient {
   async feeHistory(
     blockCount: string,
     newestBlock: BlockNumberOrTag,
-    rewardPercentiles?: number[]
+    rewardPercentiles?: number[],
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   ): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     const params: any[] = [blockCount, newestBlock];
     if (rewardPercentiles !== undefined) params.push(rewardPercentiles);
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("eth_feeHistory", params);
   }
 
@@ -495,7 +535,11 @@ export class OptimismClient extends NetworkClient {
     return this.execute<string[]>("eth_getWork");
   }
 
-  async submitWork(nonce: string, powHash: string, digest: string): Promise<StrategyResult<boolean>> {
+  async submitWork(
+    nonce: string,
+    powHash: string,
+    digest: string,
+  ): Promise<StrategyResult<boolean>> {
     return this.execute<boolean>("eth_submitWork", [nonce, powHash, digest]);
   }
 
@@ -509,27 +553,41 @@ export class OptimismClient extends NetworkClient {
     return this.execute<{ pending: string; queued: string }>("txpool_status");
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async content(): Promise<StrategyResult<Record<string, any>>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<Record<string, any>>("txpool_content");
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async inspect(): Promise<StrategyResult<Record<string, any>>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<Record<string, any>>("txpool_inspect");
   }
 
   // ===== Debug Methods =====
 
-  async debugTraceTransaction(txHash: string, options: Record<string, any> = {}): Promise<StrategyResult<any>> {
+  async debugTraceTransaction(
+    txHash: string,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+    options: Record<string, any> = {},
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+  ): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("debug_traceTransaction", [txHash, options]);
   }
 
   async debugTraceCall(
     callObject: OptimismCallObject,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     options: Record<string, any>,
-    blockTag?: BlockNumberOrTag
+    blockTag?: BlockNumberOrTag,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   ): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     const params: any[] = [callObject, options];
     if (blockTag !== undefined) params.push(blockTag);
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("debug_traceCall", params);
   }
 
@@ -538,48 +596,84 @@ export class OptimismClient extends NetworkClient {
     txIndex: number,
     address: string,
     startKey: string,
-    maxResults: number
+    maxResults: number,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   ): Promise<StrategyResult<any>> {
-    return this.execute<any>("debug_storageRangeAt", [blockHash, txIndex, address, startKey, maxResults]);
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+    return this.execute<any>("debug_storageRangeAt", [
+      blockHash,
+      txIndex,
+      address,
+      startKey,
+      maxResults,
+    ]);
   }
 
-  async accountRange(blockTag: BlockNumberOrTag, start: string, maxResults: number): Promise<StrategyResult<any>> {
+  async accountRange(
+    blockTag: BlockNumberOrTag,
+    start: string,
+    maxResults: number,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+  ): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("debug_accountRange", [blockTag, start, maxResults]);
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async getModifiedAccountsByHash(blockHash: string): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("debug_getModifiedAccountsByHash", [blockHash]);
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async getModifiedAccountsByNumber(blockNumber: string): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("debug_getModifiedAccountsByNumber", [blockNumber]);
   }
 
   // ===== Trace Methods =====
-
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async traceBlock(blockNumber: string | number): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("trace_block", [blockNumber]);
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   async traceTransaction(txHash: string): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("trace_transaction", [txHash]);
   }
 
   async traceCall(
     callObject: OptimismCallObject,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     options: Record<string, any>,
-    blockTag?: BlockNumberOrTag
+    blockTag?: BlockNumberOrTag,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
   ): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     const params: any[] = [callObject, options];
     if (blockTag !== undefined) params.push(blockTag);
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("trace_call", params);
   }
 
-  async traceRawTransaction(signedTx: string, options: Record<string, any>): Promise<StrategyResult<any>> {
+  async traceRawTransaction(
+    signedTx: string,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+    options: Record<string, any>,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+  ): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("trace_rawTransaction", [signedTx, options]);
   }
 
-  async traceFilter(filter: Record<string, any>): Promise<StrategyResult<any>> {
+  async traceFilter(
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+    filter: Record<string, any>,
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+  ): Promise<StrategyResult<any>> {
+    // biome-ignore lint/suspicious/noExplicitAny: <TODO>
     return this.execute<any>("trace_filter", [filter]);
   }
 }
