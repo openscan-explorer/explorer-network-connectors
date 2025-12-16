@@ -1,12 +1,9 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
 import { RpcClient } from "../src/RpcClient.js";
+import { isHexString } from "./helpers/validators.js";
 
 const TEST_URLS: string[] = ["https://eth.merkle.io", "https://ethereum.publicnode.com"];
-
-function isHexString(value: string): boolean {
-  return typeof value === "string" && /^0x[0-9a-fA-F]*$/.test(value);
-}
 
 describe("RpcClient - Constructor and Basic Properties", () => {
   it("should create RpcClient with url and name", () => {

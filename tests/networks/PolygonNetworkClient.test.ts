@@ -3,19 +3,64 @@ import assert from "node:assert";
 import { PolygonClient } from "../../src/networks/137/PolygonClient.js";
 import type { StrategyConfig } from "../../src/strategies/requestStrategy.js";
 import type { PolygonTransactionReceipt, PolygonLog } from "../../src/networks/137/PolygonTypes.js";
+import {
+  validateObject,
+  validateBlock,
+  validateSuccessResult,
+  isHexString,
+  isAddress,
+} from "../helpers/validators.js";
 
 const TEST_URLS = ["https://poly.api.pocket.network", "https://polygon-bor-rpc.publicnode.com"];
 
 // Known transaction hash with logs
 const TEST_TX_HASH = "0xa871c9e4d142905427f4c5eb2664b4840ef8a007c9f263aed6f6c64eeae71540";
 
-function isHexString(value: string): boolean {
-  return typeof value === "string" && /^0x[0-9a-fA-F]*$/.test(value);
-}
+describe("PolygonClient - Block Methods", () => {
+  const config: StrategyConfig = {
+    type: "fallback",
+    rpcUrls: TEST_URLS,
+  };
 
-function isAddress(value: string): boolean {
-  return typeof value === "string" && /^0x[0-9a-fA-F]{40}$/.test(value);
-}
+  it("should get block by number (latest)", async () => {
+    const client = new PolygonClient(config);
+    const result = await client.getBlockByNumber("latest", false);
+
+    validateSuccessResult(result);
+    validateBlock(result.data);
+  });
+
+  it("should get block by number (earliest)", async () => {
+    const client = new PolygonClient(config);
+    const result = await client.getBlockByNumber("earliest", false);
+
+    validateSuccessResult(result);
+    validateBlock(result.data);
+  });
+
+  it("should get block by number (pending)", async () => {
+    const client = new PolygonClient(config);
+    const result = await client.getBlockByNumber("pending", false);
+
+    // Pending block may or may not exist depending on network state
+    if (result.success && result.data) {
+      const block = result.data;
+      validateObject(block, ["transactions"]);
+      assert.ok(Array.isArray(block.transactions), "Transactions should be array");
+    } else {
+      // Some networks may not support pending tag
+      assert.ok(true, "Pending block not available or not supported");
+    }
+  });
+
+  it("should get block by number (finalized)", async () => {
+    const client = new PolygonClient(config);
+    const result = await client.getBlockByNumber("finalized", false);
+
+    validateSuccessResult(result);
+    validateBlock(result.data);
+  });
+});
 
 describe("PolygonClient - Transaction Receipt Types", () => {
   const config: StrategyConfig = {
@@ -27,8 +72,7 @@ describe("PolygonClient - Transaction Receipt Types", () => {
     const client = new PolygonClient(config);
     const result = await client.getTransactionReceipt(TEST_TX_HASH);
 
-    assert.strictEqual(result.success, true, "Should succeed");
-    assert.ok(result.data, "Should have receipt data");
+    validateSuccessResult(result);
 
     const receipt = result.data as PolygonTransactionReceipt;
 
@@ -75,8 +119,7 @@ describe("PolygonClient - Transaction Receipt Types", () => {
     const client = new PolygonClient(config);
     const result = await client.getTransactionReceipt(TEST_TX_HASH);
 
-    assert.strictEqual(result.success, true, "Should succeed");
-    assert.ok(result.data, "Should have receipt data");
+    validateSuccessResult(result);
 
     const receipt = result.data as PolygonTransactionReceipt;
     assert.ok(receipt.logs.length > 0, "Should have at least one log");

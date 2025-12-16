@@ -2,28 +2,11 @@ import { describe, it } from "node:test";
 import assert from "node:assert";
 import { OptimismClient } from "../../src/networks/10/OptimismClient.ts";
 import type { StrategyConfig } from "../../src/strategies/requestStrategy.ts";
+import { isHexString, isAddress, validateObject } from "../helpers/validators.js";
 
 const TEST_URLS = ["https://api.zan.top/opt-mainnet", "https://optimism-mainnet.gateway.tatum.io"];
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
-
-function isHexString(value: string): boolean {
-  return typeof value === "string" && /^0x[0-9a-fA-F]*$/.test(value);
-}
-
-function isAddress(value: string): boolean {
-  return typeof value === "string" && /^0x[0-9a-fA-F]{40}$/.test(value);
-}
-
-function validateObject(obj: any, requiredFields?: string[]): void {
-  assert.ok(obj !== null && obj !== undefined, "Result should not be null or undefined");
-  assert.strictEqual(typeof obj, "object", "Result should be an object");
-  if (requiredFields) {
-    for (const field of requiredFields) {
-      assert.ok(field in obj, `Object should have field '${field}'`);
-    }
-  }
-}
 
 describe("OptimismClient - Constructor", () => {
   it("should create client with fallback strategy", () => {
@@ -467,6 +450,42 @@ describe("OptimismClient - Block Methods", () => {
     assert.ok(isHexString(block.timestamp), "timestamp should be hex");
     assert.ok(isAddress(block.miner), "miner should be address");
     assert.ok(Array.isArray(block.transactions), "Transactions should be array");
+  });
+
+  it("should get block by number (earliest)", async () => {
+    const client = new OptimismClient(config);
+    const result = await client.getBlockByNumber("earliest", false);
+
+    assert.strictEqual(result.success, true, "Should succeed");
+    assert.ok(result.data, "Should have block data");
+
+    const block = result.data;
+    validateObject(block, [
+      "number",
+      "hash",
+      "parentHash",
+      "transactions",
+      "gasLimit",
+      "gasUsed",
+      "timestamp",
+    ]);
+    assert.ok(isHexString(block.number), "Block number should be hex");
+    assert.ok(isHexString(block.hash), "Block hash should be hex");
+  });
+
+  it("should get block by number (pending)", async () => {
+    const client = new OptimismClient(config);
+    const result = await client.getBlockByNumber("pending", false);
+
+    // Pending block may or may not exist depending on network state
+    if (result.success && result.data) {
+      const block = result.data;
+      validateObject(block, ["transactions"]);
+      assert.ok(Array.isArray(block.transactions), "Transactions should be array");
+    } else {
+      // Some networks may not support pending tag
+      assert.ok(true, "Pending block not available or not supported");
+    }
   });
 
   it("should get block by number with full transactions", async () => {
