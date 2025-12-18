@@ -2,12 +2,9 @@ import { describe, it } from "node:test";
 import assert from "node:assert";
 import { NetworkClient } from "../src/NetworkClient.js";
 import type { StrategyConfig } from "../src/strategies/requestStrategy.js";
+import { isHexString } from "./helpers/validators.js";
 
 const TEST_URLS = ["https://eth.merkle.io", "https://ethereum.publicnode.com"];
-
-function isHexString(value: string): boolean {
-  return typeof value === "string" && /^0x[0-9a-fA-F]*$/.test(value);
-}
 
 describe("NetworkClient - Constructor and Strategy", () => {
   it("should create NetworkClient with fallback strategy", () => {

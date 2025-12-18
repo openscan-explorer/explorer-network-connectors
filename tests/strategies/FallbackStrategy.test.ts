@@ -2,12 +2,9 @@ import { describe, it } from "node:test";
 import assert from "node:assert";
 import { FallbackStrategy } from "../../src/strategies/fallbackStrategy.js";
 import { RpcClient } from "../../src/RpcClient.js";
+import { isHexString } from "../helpers/validators.js";
 
 const TEST_URLS = ["https://eth.merkle.io", "https://ethereum.publicnode.com"];
-
-function isHexString(value: string): boolean {
-  return typeof value === "string" && /^0x[0-9a-fA-F]*$/.test(value);
-}
 
 describe("FallbackStrategy - Constructor", () => {
   it("should create FallbackStrategy with RPC clients", () => {

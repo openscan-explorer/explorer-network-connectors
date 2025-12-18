@@ -51,7 +51,6 @@ export interface OptimismTransaction {
   value: string;
   type: string; // "0x0" (legacy), "0x1" (EIP-2930), "0x2" (EIP-1559), "0x3" (EIP-4844)
   accessList?: AccessListEntry[]; // EIP-2930
-  chainId?: string;
   v: string;
   r: string;
   s: string;

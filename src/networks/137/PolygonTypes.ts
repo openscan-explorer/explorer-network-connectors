@@ -5,7 +5,7 @@
 
 // ===== Block Tags & Identifiers =====
 
-export type BlockTag = "latest" | "earliest" | "pending" | "safe" | "finalized";
+export type BlockTag = "latest" | "earliest" | "pending" | "finalized";
 export type BlockNumberOrTag = string | BlockTag;
 
 // ===== Block Structure =====
